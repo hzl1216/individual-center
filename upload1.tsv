@@ -1,0 +1,6 @@
+IndividualId	KRAS	BRAF	Survival	SurvivalTime	Progression	ProgressionlTime	PrimaryPurity	Gender	Age	AgeGrp	Stage	LM	Metastasis	PreTherapy	CEA	ClinicalId	Calcium.nodus	Intravascular.tumor.thrombus	Neurological.invasion	Invasion.in.turn	Grade	Histology	Tumor_Sample_Barcode	Normal	Tissue	MSI	TissueId	site
+323	Mutant	WT	Alive	190	Yes	68	70	male	74	>=50	IV	LM	M	No	1.23	160.37	1	1	1	1	Moderately differentiated	NA	CT-323-ZKX-399	BC323-ZKX-142	Colon	MSI-H	68	2
+381	Unknown	Unknown	Alive	52	No	52	80	male	64	>=50	IV	LM	M	Yes	1.93	2	0	0	0	0.25	Moderately differentiated	NA	T381-JZD-CT-476	T381-JZD-CN-474	Rectum	MSS	52	3
+382	WT	WT	Alive	52	No	52	80	male	70	>=50	IV	LM	M	Yes	9.57	15.68	0	0	0	0.5	Moderately differentiated	NA	T382-XCY-CT-482	B382-XCY-2	Colon	MSS	21	2
+397	WT	WT	Alive	31	No	31	80	male	53	>=50	IV	LM	M	No	1.93	2.84	1	1	1	1	Poorly differentiated adenocarcinoma	NA	T397-ZLB-CT-488	B397-ZLB-6	Rectum	MSS	31	3
+398	Unknown	Unknown	Alive	27	No	27	50	female	55	>=50	IV	LM	M	No	276.52	1200	1	1	0	1	Poorly differentiated adenocarcinoma	Mucinous adenocarcinoma	T398-LCH-CT-494	B398-LCH-4	Colon	MSS	27	1

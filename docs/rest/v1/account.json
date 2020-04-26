@@ -1,0 +1,330 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "",
+    "version": "1.0.0-alpha.1",
+    "license": {
+      "name": "Apache-2.0",
+      "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+    },
+    "title": "account"
+  },
+  "schemes": [
+    "http",
+    "https"
+  ],
+  "tags": [
+    {
+      "name": "user",
+      "description": "用户管理"
+    },
+    {
+      "name": "privilege",
+      "description": "权限管理"
+    }
+  ],
+  "paths": {
+    "/user/": {
+      "post": {
+        "summary": "",
+        "description": "新建user",
+        "operationId": "Account.User.CreateUser.Post",
+        "tags": [
+          "user"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "loginName": {
+                  "type": "string"
+                },
+                "password": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "loginName",
+                "password"
+              ]
+            }
+          }
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "403": {
+            "description": "10002&nbsp;NameExist&nbsp;用户名已进行注册<br>"
+          }
+        }
+      },
+      "get": {
+        "summary": "",
+        "description": "批量获取user",
+        "operationId": "Account.User.GetUsers.Get",
+        "tags": [
+          "user"
+        ],
+        "parameters": [
+          {
+            "type": "integer",
+            "format": "int32",
+            "default": 0,
+            "in": "query",
+            "name": "skip"
+          },
+          {
+            "type": "integer",
+            "format": "int32",
+            "default": 10,
+            "in": "query",
+            "name": "limit"
+          }
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/user/login": {
+      "post": {
+        "summary": "",
+        "description": "用户登录",
+        "operationId": "Account.User.Login.Post",
+        "tags": [
+          "user"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "loginName": {
+                  "type": "string"
+                },
+                "password": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "loginName",
+                "password"
+              ]
+            }
+          }
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "403": {
+            "description": "10003&nbsp;PasswordError&nbsp;用户密码错误<br>"
+          },
+          "404": {
+            "description": "1001&nbsp;UserNotFound&nbsp;用户不存在<br>"
+          }
+        }
+      }
+    },
+    "/user/logout": {
+      "post": {
+        "summary": "",
+        "description": "退出登录",
+        "operationId": "Account.User.Logout.Post",
+        "tags": [
+          "user"
+        ],
+        "parameters": [],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "404": {
+            "description": "1001&nbsp;UserNotFound&nbsp;用户不存在<br>"
+          }
+        }
+      }
+    },
+    "/user/{loginName}": {
+      "get": {
+        "summary": "",
+        "description": "根据loginName获取user",
+        "operationId": "Account.User.GetUser.Get",
+        "tags": [
+          "user"
+        ],
+        "parameters": [
+          {
+            "type": "string",
+            "in": "path",
+            "name": "loginName",
+            "required": true
+          }
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "404": {
+            "description": "1001&nbsp;UserNotFound&nbsp;用户不存在<br>"
+          }
+        }
+      }
+    },
+    "/privilege/": {
+      "post": {
+        "summary": "",
+        "description": "新建权限",
+        "operationId": "Account.Privilege.CreatePrivilege.Post",
+        "tags": [
+          "privilege"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string"
+                },
+                "description": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "name",
+                "description"
+              ]
+            }
+          }
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "403": {
+            "description": "10001&nbsp;PrivilegeExist&nbsp;权限已经存在<br>"
+          }
+        }
+      },
+      "get": {
+        "summary": "",
+        "description": "分页获取权限",
+        "operationId": "Account.Privilege.GetPrivileges.Get",
+        "tags": [
+          "privilege"
+        ],
+        "parameters": [
+          {
+            "type": "integer",
+            "format": "int32",
+            "default": 0,
+            "in": "query",
+            "name": "skip"
+          },
+          {
+            "type": "integer",
+            "format": "int32",
+            "default": 10,
+            "in": "query",
+            "name": "limit"
+          }
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "404": {
+            "description": "10002&nbsp;PrivilegeNotFound&nbsp;权限不存在<br>"
+          }
+        }
+      }
+    },
+    "/privilege/{pId}": {
+      "get": {
+        "summary": "",
+        "description": "根据id获取权限",
+        "operationId": "Account.Privilege.GetPrivilege.Get",
+        "tags": [
+          "privilege"
+        ],
+        "parameters": [
+          {
+            "type": "string",
+            "in": "path",
+            "name": "pId",
+            "required": true
+          }
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "404": {
+            "description": "10002&nbsp;PrivilegeNotFound&nbsp;权限不存在<br>"
+          }
+        }
+      }
+    }
+  },
+  "host": "www.example.com",
+  "basePath": "/individual-center/v1/account"
+}

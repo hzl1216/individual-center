@@ -1,0 +1,817 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "",
+    "version": "1.0.0-alpha.1",
+    "license": {
+      "name": "Apache-2.0",
+      "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+    },
+    "title": "object"
+  },
+  "schemes": [
+    "http",
+    "https"
+  ],
+  "tags": [
+    {
+      "name": "file",
+      "description": "文件上传下载"
+    },
+    {
+      "name": "clinical",
+      "description": "临床记录管理"
+    },
+    {
+      "name": "data",
+      "description": "组学数据管理"
+    },
+    {
+      "name": "tissue",
+      "description": "组织管理"
+    },
+    {
+      "name": "individual",
+      "description": "个体管理"
+    }
+  ],
+  "paths": {
+    "/file/upload": {
+      "post": {
+        "summary": "",
+        "description": "上传文件",
+        "operationId": "Object.File.Upload.Post",
+        "tags": [
+          "file"
+        ],
+        "parameters": [],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "404": {
+            "description": "2005&nbsp;FileNotFound&nbsp;文件不存在<br>"
+          }
+        }
+      }
+    },
+    "/file/download": {
+      "get": {
+        "summary": "",
+        "description": "下载文件",
+        "operationId": "Object.File.Download.Get",
+        "tags": [
+          "file"
+        ],
+        "parameters": [
+          {
+            "type": "string",
+            "in": "query",
+            "name": "path",
+            "required": true
+          }
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "404": {
+            "description": "2005&nbsp;FileNotFound&nbsp;文件不存在<br>"
+          }
+        }
+      }
+    },
+    "/clinical/": {
+      "post": {
+        "summary": "",
+        "description": "新建临床记录",
+        "operationId": "Object.Clinical.CreateClinical.Post",
+        "tags": [
+          "clinical"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "path": {
+                  "type": "string"
+                },
+                "individualId": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "path"
+              ]
+            }
+          }
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "403": {
+            "description": "20002&nbsp;ClinicalExist&nbsp;临床记录已经存在<br>"
+          },
+          "404": {
+            "description": "2001&nbsp;IndividualNotFound&nbsp;个体不存在<br>"
+          }
+        }
+      },
+      "get": {
+        "summary": "",
+        "description": "获取临床记录",
+        "operationId": "Object.Clinical.GetClinicals.Get",
+        "tags": [
+          "clinical"
+        ],
+        "parameters": [
+          {
+            "type": "integer",
+            "format": "int32",
+            "default": 0,
+            "in": "query",
+            "name": "skip"
+          },
+          {
+            "type": "integer",
+            "format": "int32",
+            "default": 10,
+            "in": "query",
+            "name": "limit"
+          }
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/clinical/{clinicalId}": {
+      "get": {
+        "summary": "",
+        "description": "根据id获取临床记录",
+        "operationId": "Object.Clinical.GetClinical.Get",
+        "tags": [
+          "clinical"
+        ],
+        "parameters": [
+          {
+            "type": "string",
+            "in": "path",
+            "name": "clinicalId",
+            "required": true
+          }
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "404": {
+            "description": "2002&nbsp;ClinicalNotFound&nbsp;临床记录不存在<br>"
+          }
+        }
+      },
+      "delete": {
+        "summary": "",
+        "description": "删除临床记录",
+        "operationId": "Object.Clinical.DeleteClinical.Delete",
+        "tags": [
+          "clinical"
+        ],
+        "parameters": [
+          {
+            "type": "string",
+            "in": "path",
+            "name": "clinicalId",
+            "required": true
+          }
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "404": {
+            "description": "2002&nbsp;ClinicalNotFound&nbsp;临床记录不存在<br>2001&nbsp;IndividualNotFound&nbsp;个体不存在<br>"
+          }
+        }
+      }
+    },
+    "/clinical/update": {
+      "post": {
+        "summary": "",
+        "description": "更新临床记录",
+        "operationId": "Object.Clinical.UpdateClinical.Post",
+        "tags": [
+          "clinical"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "path": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "path"
+              ]
+            }
+          }
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "404": {
+            "description": "2002&nbsp;ClinicalNotFound&nbsp;临床记录不存在<br>"
+          }
+        }
+      }
+    },
+    "/data/": {
+      "post": {
+        "summary": "",
+        "description": "",
+        "operationId": "Object.Data.CreateData.Post",
+        "tags": [
+          "data"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "tissueId": {
+                  "type": "string"
+                },
+                "id": {
+                  "type": "string"
+                },
+                "type": {
+                  "type": "string"
+                },
+                "rawurl": {
+                  "type": "string"
+                },
+                "url": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "tissueId",
+                "id",
+                "type",
+                "rawurl",
+                "url"
+              ]
+            }
+          }
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "403": {
+            "description": "20004&nbsp;DataExist&nbsp;数据已经存在<br>"
+          },
+          "404": {
+            "description": "2003&nbsp;DataNotFound&nbsp;数据不存在<br>2004&nbsp;TissueNotFound&nbsp;组织不存在<br>"
+          }
+        }
+      },
+      "get": {
+        "summary": "",
+        "description": "获取组学数据",
+        "operationId": "Object.Data.GetDatas.Get",
+        "tags": [
+          "data"
+        ],
+        "parameters": [
+          {
+            "type": "string",
+            "in": "query",
+            "name": "type",
+            "required": true
+          },
+          {
+            "type": "integer",
+            "format": "int32",
+            "default": 0,
+            "in": "query",
+            "name": "skip"
+          },
+          {
+            "type": "integer",
+            "format": "int32",
+            "default": 10,
+            "in": "query",
+            "name": "limit"
+          }
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "data": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "objectId": {
+                        "type": "string"
+                      },
+                      "url": {
+                        "type": "string"
+                      },
+                      "rawurl": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "objectId",
+                      "url",
+                      "rawurl"
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/data/{id}": {
+      "get": {
+        "summary": "",
+        "description": "",
+        "operationId": "Object.Data.GetData.Get",
+        "tags": [
+          "data"
+        ],
+        "parameters": [
+          {
+            "type": "string",
+            "in": "path",
+            "name": "id",
+            "required": true
+          },
+          {
+            "type": "string",
+            "in": "query",
+            "name": "type",
+            "required": true
+          }
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "404": {
+            "description": "2003&nbsp;DataNotFound&nbsp;数据不存在<br>"
+          }
+        }
+      }
+    },
+    "/tissue/": {
+      "post": {
+        "summary": "",
+        "description": "",
+        "operationId": "Object.Tissue.CreateTissue.Post",
+        "tags": [
+          "tissue"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "path": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "path"
+              ]
+            }
+          }
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "403": {
+            "description": "20003&nbsp;TissueExist&nbsp;组织已经存在<br>"
+          },
+          "404": {
+            "description": "2001&nbsp;IndividualNotFound&nbsp;个体不存在<br>"
+          }
+        }
+      },
+      "get": {
+        "summary": "",
+        "description": "",
+        "operationId": "Object.Tissue.GetTissues.Get",
+        "tags": [
+          "tissue"
+        ],
+        "parameters": [
+          {
+            "type": "integer",
+            "format": "int32",
+            "default": 0,
+            "in": "query",
+            "name": "skip"
+          },
+          {
+            "type": "integer",
+            "format": "int32",
+            "default": 10,
+            "in": "query",
+            "name": "limit"
+          }
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/tissue/{tissueId}": {
+      "get": {
+        "summary": "",
+        "description": "",
+        "operationId": "Object.Tissue.GetTissue.Get",
+        "tags": [
+          "tissue"
+        ],
+        "parameters": [
+          {
+            "type": "string",
+            "in": "path",
+            "name": "tissueId",
+            "required": true
+          }
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "404": {
+            "description": "2004&nbsp;TissueNotFound&nbsp;组织不存在<br>"
+          }
+        }
+      },
+      "delete": {
+        "summary": "",
+        "description": "",
+        "operationId": "Object.Tissue.DeleteTissue.Delete",
+        "tags": [
+          "tissue"
+        ],
+        "parameters": [
+          {
+            "type": "string",
+            "in": "path",
+            "name": "tissueId",
+            "required": true
+          }
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "404": {
+            "description": "2004&nbsp;TissueNotFound&nbsp;组织不存在<br>2001&nbsp;IndividualNotFound&nbsp;个体不存在<br>"
+          }
+        }
+      }
+    },
+    "/tissue/update": {
+      "post": {
+        "summary": "",
+        "description": "",
+        "operationId": "Object.Tissue.UpdateTissue.Post",
+        "tags": [
+          "tissue"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "path": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "path"
+              ]
+            }
+          }
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "404": {
+            "description": "2004&nbsp;TissueNotFound&nbsp;组织不存在<br>"
+          }
+        }
+      }
+    },
+    "/individual/": {
+      "post": {
+        "summary": "",
+        "description": "",
+        "operationId": "Object.Individual.CreateIndividual.Post",
+        "tags": [
+          "individual"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "path": {
+                  "type": "string"
+                },
+                "individualId": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "path"
+              ]
+            }
+          }
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "403": {
+            "description": "20001&nbsp;IndividualExist&nbsp;个体已经存在<br>"
+          }
+        }
+      },
+      "get": {
+        "summary": "",
+        "description": "",
+        "operationId": "Object.Individual.GetIndividuals.Get",
+        "tags": [
+          "individual"
+        ],
+        "parameters": [
+          {
+            "type": "integer",
+            "format": "int32",
+            "default": 0,
+            "in": "query",
+            "name": "skip"
+          },
+          {
+            "type": "integer",
+            "format": "int32",
+            "default": 10,
+            "in": "query",
+            "name": "limit"
+          }
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/individual/{individualId}": {
+      "get": {
+        "summary": "",
+        "description": "",
+        "operationId": "Object.Individual.GetIndividual.Get",
+        "tags": [
+          "individual"
+        ],
+        "parameters": [
+          {
+            "type": "string",
+            "in": "path",
+            "name": "individualId",
+            "required": true
+          }
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "404": {
+            "description": "2001&nbsp;IndividualNotFound&nbsp;个体不存在<br>"
+          }
+        }
+      },
+      "delete": {
+        "summary": "",
+        "description": "",
+        "operationId": "Object.Individual.GetIndividual.Delete",
+        "tags": [
+          "individual"
+        ],
+        "parameters": [
+          {
+            "type": "string",
+            "in": "path",
+            "name": "individualId",
+            "required": true
+          }
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "404": {
+            "description": "2001&nbsp;IndividualNotFound&nbsp;个体不存在<br>"
+          }
+        }
+      }
+    },
+    "/individual/update": {
+      "post": {
+        "summary": "",
+        "description": "",
+        "operationId": "Object.Individual.UpdateIndividual.Post",
+        "tags": [
+          "individual"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "path": {
+                  "type": "string"
+                },
+                "individualId": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "path"
+              ]
+            }
+          }
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "404": {
+            "description": "2001&nbsp;IndividualNotFound&nbsp;个体不存在<br>"
+          }
+        }
+      }
+    }
+  },
+  "host": "www.example.com",
+  "basePath": "/individual-center/v1/object"
+}
