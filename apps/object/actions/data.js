@@ -123,9 +123,11 @@ const actionGetDatas = Action.Create({
         rawurl: true,
       }
   });
-    res.json(
-      result
-    );
+  const count = await dao.count({});
+    res.json({
+      result: result,
+      count: count
+    });
   }
 });
 
