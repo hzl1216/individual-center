@@ -12,6 +12,7 @@ const router = new Router({
 router.post('/', actions.actionCreateData);
 router.get('/', actions.actionGetDatas);
 router.get('/:id', actions.actionGetData);
+router.delete('/', actions.actionDeleteData);
 
 module.exports = {
   router

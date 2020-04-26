@@ -98,4 +98,29 @@ module.exports = {
       }
     }
   },
+  actionDeleteData: {
+    request: {
+      contentType: 'application/json',
+      query: {
+        type: 'string*',
+        id: 'string*',
+        tissueId: 'string*',
+      },
+    },
+    response: {
+      200: {
+      },
+      404: {
+        errors: {
+          DataNotFound, TissueNotFound
+        }
+      },
+      contentType: 'application/json'
+    },
+    store: {
+      default: {
+        PhosphoProtein,Rna,Wes,Protein,Tissue
+      }
+    }
+  },
 };

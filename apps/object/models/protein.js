@@ -9,6 +9,7 @@ const UDateTime = types.UDateTime;
 
 const Protein = model.createModel('Protein', {
   objectId: UString(),
+  TissueId: UString(),
   url: UString(),
   rawurl: UString(),
   createdAt: UDateTime(),

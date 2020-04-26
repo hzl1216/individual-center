@@ -9,6 +9,7 @@ const UDateTime = types.UDateTime;
 
 const PhosphoProtein = model.createModel('PhosphoProtein', {
   objectId: UString(),
+  TissueId: UString(),
   url: UString(),
   rawurl: UString(),
   createdAt: UDateTime(),
