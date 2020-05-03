@@ -168,7 +168,6 @@ const actionDeleteTissue = Action.Create({
   */
   async handler(req, res, ctx) {
     const { tissueDao, individualDao, phosphoProteinDao, proteinDao, rnaDao, wesDao }= ctx.store.default;
-    const individualDao = ctx.store.default.individualDao;
     const tissueId = req.params.tissueId;
     const one = await tissueDao.findOne({
       TissueId: tissueId,
