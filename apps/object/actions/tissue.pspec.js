@@ -4,7 +4,7 @@ const {
   TissueNotFound, IndividualNotFound, TissueExist
 } = require('../config/errors');
 const {
-  Individual, Tissue
+  Individual, Tissue,PhosphoProtein,Rna,Wes,Protein
 } = require('../models/index');
 module.exports = {
   actionCreateTissue: {
@@ -127,7 +127,7 @@ module.exports = {
     },
     store: {
       default: {
-        Tissue, Individual      }
+        Tissue, Individual,PhosphoProtein,Rna,Wes,Protein,      }
     }
   },
 };

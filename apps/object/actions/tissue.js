@@ -167,7 +167,7 @@ const actionDeleteTissue = Action.Create({
   * @param {kexpress.HandleContext} ctx - The context data of kexpress.
   */
   async handler(req, res, ctx) {
-    const tissueDao = ctx.store.default.tissueDao;
+    const { tissueDao, individualDao, phosphoProteinDao, proteinDao, rnaDao, wesDao }= ctx.store.default;
     const individualDao = ctx.store.default.individualDao;
     const tissueId = req.params.tissueId;
     const one = await tissueDao.findOne({
@@ -185,6 +185,27 @@ const actionDeleteTissue = Action.Create({
     const index = individual['tissues'].indexOf(one);
     individual['tissues'].splice(index,1);
     await individualDao.updateOne(individual);
+
+
+    const phosphoproteins = await phosphoProteinDao.load(one.phosphoprotein);
+    for await(const phosphoprotein of phosphoproteins ) {
+      await phosphoProteinDao.remove(phosphoprotein);
+    }
+
+    const proteins = await proteinDao.load(one.protein);
+    for await(const protein of proteins ) {
+      await proteinDao.remove(protein);
+    }
+
+    const rnas = await rnaDao.load(one.rna);
+    for await(const rna of rnas ) {
+      await rnaDao.remove(rna);
+    }
+
+    const wess = await wesDao.load(one.wes);
+    for await(const wes of wess ) {
+      await wesDao.remove(wes);
+    }
     await tissueDao.remove(one);
     res.json({ 
       msg: 'success'
