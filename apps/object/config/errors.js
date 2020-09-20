@@ -46,4 +46,24 @@ module.exports = {
     message: '数据已经存在',
     status: 403
   },
+  TaskExist: {
+    id: 30001,
+    message: '任务已经存在',
+    status: 403
+  },
+  ModelExist: {
+    id: 30002,
+    message: '模型已经存在',
+    status: 403
+  },
+  ModelNotExist: {
+    id: 30003,
+    message: '模型不存在',
+    status: 404
+  },
+  TaskNotExist: {
+    id: 30004,
+    message: '任务不存在',
+    status: 404
+  }
 };
