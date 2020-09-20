@@ -52,7 +52,6 @@ module.exports = {
     store: {
       default:{User}
     },
-    permission: 'login'
   },
   actionGetUser: {
     request: {
