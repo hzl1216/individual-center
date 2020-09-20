@@ -70,6 +70,18 @@ const actionGetIndividuals = Action.Create({
         IndividualId : true,
         Gender: true,
         Age: true,
+        KRAS: true,
+        BRAF: true,
+        PrimaryPurity: true,
+        AgeGrp: true,
+        Stage: true,
+        Metastasis: true,
+        PreTherapy: true,
+        CEA: true,
+        Grade: true,
+        Histology: true,
+        MSI: true,
+        site: true,
       }
   });
   const count = await individualDao.count();

@@ -1,0 +1,28 @@
+
+> individual-center@1.0.0-alpha.1 dev /home/hzl/projects/tumor/individual-center
+> cross-env KEXPRESS_ENV=dev node loader.js
+
+[32m[2020-04-26T10:08:35.329] [INFO] express.output - [39mStart using environment dev
+[32m[2020-04-26T10:08:35.502] [INFO] express.output - [39mLoaded configuration from inline module.
+[32m[2020-04-26T10:08:35.503] [INFO] express.output - [39mLoaded configuration of project 'individual-center'
+[32m[2020-04-26T10:08:35.507] [INFO] express.output - [39mLoaded configuration from inline module.
+[32m[2020-04-26T10:08:35.507] [INFO] express.output - [39mLoaded configuration of app 'account':
+
+[32m[2020-04-26T10:08:35.512] [INFO] express.output - [39mInitialized logger for app account
+[32m[2020-04-26T10:08:35.528] [INFO] express.output - [39mLoaded configuration from inline module.
+[32m[2020-04-26T10:08:35.528] [INFO] express.output - [39mLoaded configuration of app 'object':
+
+[32m[2020-04-26T10:08:35.531] [INFO] express.output - [39mDevelopment master server listen at port 3000
+[32m[2020-04-26T10:08:35.531] [INFO] express.output - [39mDevelopment application server listen at port 3001
+[32m[2020-04-26T10:08:35.541] [INFO] express.output - [39mInitialized logger for app object
+Map {
+  'account' => {
+    prefix: '/individual-center/v1/account',
+    dest: 'http://0.0.0.0:3001/individual-center/v1/account'
+  },
+  'object' => {
+    prefix: '/individual-center/v1/object',
+    dest: 'http://0.0.0.0:3002/individual-center/v1/object'
+  }
+}
+[32m[2020-04-26T10:08:35.544] [INFO] express.output - [39mDevelopment application server listen at port 3002

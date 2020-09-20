@@ -3,6 +3,7 @@
 const kexpress = require('kexpress');
 const Router = kexpress.core.router.Router;
 const userRouter = require('./user').router;
+const guestRouter = require('./guest').router;
 const privilegeRouter = require('./privilege').router;
 
 const router = new Router({
@@ -10,6 +11,7 @@ const router = new Router({
   description: ''
 });
 router.use('/user', userRouter);
+router.use('/guest', guestRouter);
 router.use('/privilege', privilegeRouter);
 
 module.exports = {

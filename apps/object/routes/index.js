@@ -6,6 +6,7 @@ const clinicalRouter = require('./clinical').router;
 const dataRouter = require('./data').router;
 const tissueRouter = require('./tissue').router;
 const individualRouter = require('./individual').router;
+const drugRouter = require('./drug').router;
 const fileRouter = require('./file').router;
 const router = new Router({
   name: 'object',
@@ -16,6 +17,7 @@ router.use('/clinical', clinicalRouter);
 router.use('/data', dataRouter);
 router.use('/tissue', tissueRouter);
 router.use('/individual', individualRouter);
+router.use('/drug', drugRouter);
 
 module.exports = {
   router: router

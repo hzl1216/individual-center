@@ -26,6 +26,16 @@ module.exports = {
     message: '文件不存在',
     status: 404
   },
+  DrugNotFound: {
+    id: 2006,
+    message: '药物不存在',
+    status: 404
+  },
+  TargetNotFound: {
+    id: 2007,
+    message: '靶点不存在',
+    status: 404
+  },
   IndividualExist: {
     id: 20001,
     message: '个体已经存在',
@@ -44,6 +54,16 @@ module.exports = {
   DataExist: {
     id: 20004,
     message: '数据已经存在',
+    status: 403
+  },
+  DrugExist: {
+    id: 20005,
+    message: '药物已经存在',
+    status: 403
+  },
+  TargetExist: {
+    id: 20006,
+    message: '靶点已经存在',
     status: 403
   },
 };
