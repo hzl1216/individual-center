@@ -43,7 +43,8 @@ const actionCreateTask = Action.Create({
           name: taskname,
           description: description,
           model: model,  
-          status: '未执行' 
+          status: '未执行',
+          createdAt: new Date().getTime()
       })
     let rawdata = await rawDataDao.findOne({
         url: rawurl,
@@ -99,8 +100,64 @@ const actionCreateTask = Action.Create({
     }
   });
 
+  const actionGetTasks = Action.Create({
+    name: 'actionGetTasks',
+    summary: '',
+    description: '获取任务',
+    prehandlers: prehandlers.actionGetTasks,
+    /**
+    * Action handler
+    * @param {express.core.Request} req - The HTTP request of express.
+    * @param {express.core.Response} res - The HTTP response of express.
+    * @param {kexpress.HandleContext} ctx - The context data of kexpress.
+    */
+    async handler(req, res, ctx) {
+      const  { taskDao } = ctx.store.default;
+      let where = {}
+      if (req.query.status) {
+          where['status'] = req.query.status
+      }
+
+
+      const {
+        skip,
+        limit
+      } = req.query;
+      let tasks = await taskDao.query(where)
+      .skip(skip)
+      .limit(limit)
+      .execute();
+     
+      let result = await   Task.$extractArray(tasks, {
+        includes: {
+            name: true,
+            description: true,
+            model: {
+                name: true,
+            },
+            rawdata: {
+                url: true,
+                type: true
+            },
+            processeddata:{
+                url: true,
+                type: true
+            },
+            status: true,
+            createdAt: true,
+            updatedAt: true,
+        }
+    });
+      res.json({
+        result: result,
+      });
+    }
+  });
+  
+
   module.exports = {
     actionCreateTask,
-    actionUpdateStatus
+    actionUpdateStatus,
+    actionGetTasks
   };
   

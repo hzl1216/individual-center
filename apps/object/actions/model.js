@@ -42,7 +42,8 @@ const {
         url: modelurl,
         type: type,
         description: description,
-        status: '待审核'
+        status: '待审核',
+        createdAt: new Date().getTime()
       });
       let m = await modelDao.create(model);
       res.json({
@@ -81,7 +82,7 @@ const {
       for (const key in req.body){
         model[key]= req.body[key];
       }
-
+      model['updatedAt'] = new Date().getTime()
       await modelDao.updateOne(model);
       res.json({
         msg: 'success',

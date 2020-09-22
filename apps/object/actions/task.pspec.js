@@ -74,5 +74,30 @@ module.exports = {
       }
     }
   },
-   
+  actionGetTasks: {
+    request: {
+      contentType: 'application/json',
+      query: {
+        skip: {
+          $type: 'integer',
+          $default: 0
+        },
+        limit: {
+          $type: 'integer',
+          $default: 10
+        },
+        status: 'string'
+      }
+    },
+    response: {
+      200: {
+      },
+      contentType: 'application/json'
+    },
+    store: {
+      default: {
+        Task
+      }
+    }
+  },
 };
