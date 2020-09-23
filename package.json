@@ -30,6 +30,7 @@
     "kexpress-store-um": "^1.0.1",
     "multiparty": "^4.2.1",
     "pm2": "^3.5.0",
+    "rio": "^2.4.1",
     "unique-model": "^0.4.3",
     "unique-model-mongodb": "^0.1.5",
     "uuid": "^3.3.2"

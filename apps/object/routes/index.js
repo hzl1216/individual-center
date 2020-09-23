@@ -9,6 +9,7 @@ const individualRouter = require('./individual').router;
 const taskRouter = require('./task').router;
 const fileRouter = require('./file').router;
 const modelRouter = require('./model').router;
+const vis = require('./vis')
 const router = new Router({
   name: 'object',
   description: ''
@@ -20,6 +21,7 @@ router.use('/tissue', tissueRouter);
 router.use('/individual', individualRouter);
 router.use('/task', taskRouter);
 router.use('/model', modelRouter);
+router.get('/vis/rio',vis.rio);
 module.exports = {
   router: router
 };

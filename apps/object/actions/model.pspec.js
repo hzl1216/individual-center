@@ -44,11 +44,10 @@ module.exports = {
     request: {
       contentType: 'application/json',
       body: {
-        id: 'string*',
         type: 'string',
         description: 'string',
         modelurl: 'string',
-        modelname: 'string',
+        modelname: 'string*',
         status: 'string'
       }
     },

@@ -67,14 +67,11 @@ const {
     */
     async handler(req, res, ctx) {
       const { modelDao } = ctx.store.default;
-      const id=req.body.id;
-      const description=req.body.description;
-      const modelurl=req.body.modelurl;
       const modelname=req.body.modelname;
 
       
       const model = await modelDao.findOne({
-        id: id
+        name: modelname
       });
       if (!model) {
         throw new ctx.errors.ModelNotExist();
