@@ -2,7 +2,10 @@
 
 const kexpress = require('kexpress');
 const Action = kexpress.core.action.Action;
-const parse = require('../../../tool/tsvparse').Tsvparse;
+const {
+    exec_python,
+    exec_R
+} = require('../../../tool/exeu');
 const prehandlers = require('./task.pspec');
 const {
     Model,
@@ -91,7 +94,20 @@ const actionCreateTask = Action.Create({
       if (!task) {
         throw new ctx.errors.TaskNotExist();
       }
+
       task['status'] = status
+      if (status == '执行中'){
+          const args = {
+            rawurl = task.rawdata.url,
+            preurl = task.processeddata.url
+          }
+          if (task.model.type == 'R'){
+              exec_R(task.model.url,args)
+          }
+          if (task.model.type == 'python'){
+            exec_python(task.model.url,args)
+        }
+      }
 
       await taskDao.updateOne(task);
       res.json({
