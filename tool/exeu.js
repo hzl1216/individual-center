@@ -30,9 +30,16 @@ function exec_R(path,args,callback1,callback2){
     });
 
 }
-exec_python('1.py',{
+let callback1 = function (err) {
+
+    console.log(err)
+}
+let callback2 = function(stdout) {
+    console.log(stdout)
+}
+exec_R('1.py',{
     type: 'R'
-})
+},callback1,callback2)
 module.exports = {
     exec_python,
     exec_R

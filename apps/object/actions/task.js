@@ -115,7 +115,7 @@ const actionCreateTask = Action.Create({
                 status: true
             }
             });
-            let callback1 = function(err) {
+            let callback1 = function (err) {
 
                 console.log(err)
             }
