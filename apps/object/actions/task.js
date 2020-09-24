@@ -112,9 +112,7 @@ const actionCreateTask = Action.Create({
             }
             });
           const args = {
-
             rawurl: task.rawdata.url,
-            preurl: task.processeddata.url
           }
           if (task.model.type == 'R'){
                 console.log('run R');
