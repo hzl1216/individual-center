@@ -42,7 +42,8 @@ const {
         url: modelurl,
         type: type,
         description: description,
-        status: '待审核'
+        status: '待审核',
+        createdAt: new Date().getTime()
       });
       let m = await modelDao.create(model);
       res.json({
@@ -65,7 +66,11 @@ const {
     * @param {kexpress.HandleContext} ctx - The context data of kexpress.
     */
     async handler(req, res, ctx) {
+<<<<<<< HEAD
       const { modelDao } = ctx.store.default;   
+=======
+      const { modelDao } = ctx.store.default;
+>>>>>>> faef56206058fb1443a1bbe8c2b2dbb8dde960c5
       const modelname=req.body.modelname;
 
       
@@ -81,7 +86,11 @@ const {
           model[key]= req.body[key];
         }
       }
+<<<<<<< HEAD
       
+=======
+      model['updatedAt'] = new Date().getTime()
+>>>>>>> faef56206058fb1443a1bbe8c2b2dbb8dde960c5
       await modelDao.updateOne(model);
       res.json({
         msg: 'success',

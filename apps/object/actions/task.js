@@ -2,7 +2,10 @@
 
 const kexpress = require('kexpress');
 const Action = kexpress.core.action.Action;
-const parse = require('../../../tool/tsvparse').Tsvparse;
+const {
+    exec_python,
+    exec_R
+} = require('../../../tool/exeu');
 const prehandlers = require('./task.pspec');
 const {
     Model,
@@ -43,7 +46,8 @@ const actionCreateTask = Action.Create({
           name: taskname,
           description: description,
           model: model,  
-          status: '未执行' 
+          status: '未执行',
+          createdAt: new Date().getTime()
       })
     let rawdata = await rawDataDao.findOne({
         url: rawurl,
@@ -84,23 +88,118 @@ const actionCreateTask = Action.Create({
       const status =req.body.status;
 
       
-      let task = await taskDao.findOne({
+      let t = await taskDao.findOne({
         id: id
       });
-      if (!task) {
+      if (!t) {
         throw new ctx.errors.TaskNotExist();
       }
-      task['status'] = status
 
-      await taskDao.updateOne(task);
+      t['status'] = status
+      if (status == '执行中'){
+        let task = await t.$extract({
+            includes: {
+                rawdata : {
+                    url: true,
+                    type: true
+                },
+                processeddata : {
+                    url: true,
+                    type: true
+                },
+                model: {
+                type:true,
+                url: true
+                },
+                description: true,
+                status: true
+            }
+            });
+            let callback1 = function(err) {
+
+                console.log(err)
+            }
+            let callback2 = function(stdout) {
+                console.log(stdout)
+            }
+          const args = {
+            rawurl: task.rawdata.url,
+          }
+          if (task.model.type == 'R'){
+                console.log('run R');
+              exec_R(task.model.url,args,callback1,callback2)
+          }
+          if (task.model.type == 'python'){
+            console.log('run python');
+            exec_python(task.model.url,args,callback1,callback2)
+        }
+      }
+
+      await taskDao.updateOne(t);
       res.json({
         msg: 'success',
       });
     }
   });
 
+  const actionGetTasks = Action.Create({
+    name: 'actionGetTasks',
+    summary: '',
+    description: '获取任务',
+    prehandlers: prehandlers.actionGetTasks,
+    /**
+    * Action handler
+    * @param {express.core.Request} req - The HTTP request of express.
+    * @param {express.core.Response} res - The HTTP response of express.
+    * @param {kexpress.HandleContext} ctx - The context data of kexpress.
+    */
+    async handler(req, res, ctx) {
+      const  { taskDao } = ctx.store.default;
+      let where = {}
+      if (req.query.status) {
+          where['status'] = req.query.status
+      }
+
+
+      const {
+        skip,
+        limit
+      } = req.query;
+      let tasks = await taskDao.query(where)
+      .skip(skip)
+      .limit(limit)
+      .execute();
+     
+      let result = await   Task.$extractArray(tasks, {
+        includes: {
+            name: true,
+            description: true,
+            model: {
+                name: true,
+            },
+            rawdata: {
+                url: true,
+                type: true
+            },
+            processeddata:{
+                url: true,
+                type: true
+            },
+            status: true,
+            createdAt: true,
+            updatedAt: true,
+        }
+    });
+      res.json({
+        result: result,
+      });
+    }
+  });
+  
+
   module.exports = {
     actionCreateTask,
-    actionUpdateStatus
+    actionUpdateStatus,
+    actionGetTasks
   };
   
