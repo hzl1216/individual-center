@@ -108,7 +108,8 @@ const actionCreateTask = Action.Create({
                     type: true
                 },
                 model: {
-                type:true
+                type:true,
+                url: true
                 },
                 description: true,
                 status: true
