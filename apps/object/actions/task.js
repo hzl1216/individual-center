@@ -115,11 +115,11 @@ const actionCreateTask = Action.Create({
                 status: true
             }
             });
-            let callback1 = function(err) {
+          function callback1(err) {
 
                 console.log(err)
             }
-            let callback2 = function(stdout) {
+          function callback2(stdout) {
                 console.log(stdout)
             }
           const args = {
