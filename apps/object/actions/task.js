@@ -117,9 +117,13 @@ const actionCreateTask = Action.Create({
             });
             let callback1 = function (err) {
 
+                t['status'] = '执行失败'
+                await taskDao.updateOne(t);
                 console.log(err)
             }
             let callback2 = function(stdout) {
+                t['status'] = '执行成功'
+                await taskDao.updateOne(t);
                 console.log(stdout)
             }
           const args = {
