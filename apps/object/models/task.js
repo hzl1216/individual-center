@@ -21,6 +21,7 @@ const Task = model.createModel('Task', {
     type: 'ProcessedData'
   }),
   status: UString(),
+  stdout: UString(),
   createdAt: UDateTime(),
   updatedAt: UDateTime()
 }, 'tasks');

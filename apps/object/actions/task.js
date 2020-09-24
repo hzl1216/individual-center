@@ -118,11 +118,13 @@ const actionCreateTask = Action.Create({
             let callback1 = function (err) {
 
                 t['status'] = '执行失败'
+                t['stdout'] = err;
                  taskDao.updateOne(t);
                 console.log(err)
             }
             let callback2 = function(stdout) {
-                t['status'] = '执行成功'
+                t['status'] = '执行成功';
+                t['stdout'] = stdout;
                  taskDao.updateOne(t);
                 console.log(stdout)
             }
@@ -180,6 +182,7 @@ const actionCreateTask = Action.Create({
             description: true,
             model: {
                 name: true,
+                url: true
             },
             rawdata: {
                 url: true,
@@ -190,6 +193,7 @@ const actionCreateTask = Action.Create({
                 type: true
             },
             status: true,
+            stdout:true,
             createdAt: true,
             updatedAt: true,
         }
