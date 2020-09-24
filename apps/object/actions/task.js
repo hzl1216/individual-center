@@ -102,9 +102,11 @@ const actionCreateTask = Action.Create({
             preurl: task.processeddata.url
           }
           if (task.model.type == 'R'){
+                console.log('run R');
               exec_R(task.model.url,args)
           }
           if (task.model.type == 'python'){
+            console.log('run python');
             exec_python(task.model.url,args)
         }
       }
