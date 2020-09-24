@@ -115,16 +115,23 @@ const actionCreateTask = Action.Create({
                 status: true
             }
             });
+            let callback1 = function(err) {
+
+                console.log(err)
+            }
+            let callback2 = function(stdout) {
+                console.log(stdout)
+            }
           const args = {
             rawurl: task.rawdata.url,
           }
           if (task.model.type == 'R'){
                 console.log('run R');
-              exec_R(task.model.url,args)
+              exec_R(task.model.url,args,callback1,callback2)
           }
           if (task.model.type == 'python'){
             console.log('run python');
-            exec_python(task.model.url,args)
+            exec_python(task.model.url,args,callback1,callback2)
         }
       }
 
