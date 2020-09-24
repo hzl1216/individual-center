@@ -34,7 +34,7 @@ const actionCreateTask = Action.Create({
       const rawtype = req.body.rawtype;
 
       const model = await modelDao.findOne({
-        id: req.body.modelId
+        name: req.body.modelname
       });
       if (!model) {
         throw new ctx.errors.ModelNotExist();

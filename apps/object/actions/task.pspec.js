@@ -18,7 +18,7 @@ module.exports = {
         description: 'string*',
         rawurl: 'string*',
         rawtype: 'string*',
-        modelId: 'string*',
+        modelname: 'string*',
       }
     },
     response: {
