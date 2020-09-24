@@ -1,10 +1,11 @@
 var exec = require('child_process').exec;
 function exec_python(path,args){
     let exec_l = 'python ' + path;
-    args.forEach(key => {
+
+    for(let key in args){
         exec_l += '  --'+key+'='+args[key]
-        
-    });
+    }
+    console.log(exec_l)
     exec(exec_l,function(error,stdout,stderr){
         if(error) {
             console.info(stderr);
@@ -16,10 +17,10 @@ function exec_python(path,args){
 }
 function exec_R(path,args){
     let exec_l = 'Rscript ' + path;
-    args.forEach(key => {
+    for(let key in args){
         exec_l += '  --'+key+'='+args[key]
-        
-    });
+    }
+    console.log(exec_l)
     exec(exec_l,function(error,stdout,stderr){
         if(error) {
             console.info(stderr);
@@ -29,6 +30,9 @@ function exec_R(path,args){
     });
 
 }
+exec_python('1.py',{
+    type: 'R'
+})
 module.exports = {
     exec_python,
     exec_R
