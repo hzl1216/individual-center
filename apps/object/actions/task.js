@@ -88,16 +88,31 @@ const actionCreateTask = Action.Create({
       const status =req.body.status;
 
       
-      let task = await taskDao.findOne({
+      let t = await taskDao.findOne({
         id: id
       });
-      if (!task) {
+      if (!t) {
         throw new ctx.errors.TaskNotExist();
       }
 
-      task['status'] = status
+      t['status'] = status
       if (status == '执行中'){
+        let task = await t.$extract({
+            includes: {
+                rawdata : {
+                    url: true,
+                    type: true
+                },
+                processeddata : {
+                    url: true,
+                    type: true
+                },
+                description: true,
+                status: true
+            }
+            });
           const args = {
+
             rawurl: task.rawdata.url,
             preurl: task.processeddata.url
           }
@@ -111,7 +126,7 @@ const actionCreateTask = Action.Create({
         }
       }
 
-      await taskDao.updateOne(task);
+      await taskDao.updateOne(t);
       res.json({
         msg: 'success',
       });
