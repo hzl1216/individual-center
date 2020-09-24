@@ -98,8 +98,8 @@ const actionCreateTask = Action.Create({
       task['status'] = status
       if (status == '执行中'){
           const args = {
-            rawurl = task.rawdata.url,
-            preurl = task.processeddata.url
+            rawurl: task.rawdata.url,
+            preurl: task.processeddata.url
           }
           if (task.model.type == 'R'){
               exec_R(task.model.url,args)
