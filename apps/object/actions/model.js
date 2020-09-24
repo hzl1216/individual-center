@@ -65,23 +65,23 @@ const {
     * @param {kexpress.HandleContext} ctx - The context data of kexpress.
     */
     async handler(req, res, ctx) {
-      const { modelDao } = ctx.store.default;
-      const id=req.body.id;
-      const description=req.body.description;
-      const modelurl=req.body.modelurl;
+      const { modelDao } = ctx.store.default;   
       const modelname=req.body.modelname;
 
       
       const model = await modelDao.findOne({
-        id: id
+        name: modelname
       });
       if (!model) {
         throw new ctx.errors.ModelNotExist();
       }
+      
       for (const key in req.body){
-        model[key]= req.body[key];
+        if(req.body[key]!= ''){
+          model[key]= req.body[key];
+        }
       }
-
+      
       await modelDao.updateOne(model);
       res.json({
         msg: 'success',
