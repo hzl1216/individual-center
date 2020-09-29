@@ -140,7 +140,6 @@ const actionCreateTask = Action.Create({
           if (!outparams) {
             outparams = '[]'
         } 
-            console.log(inputparams,outparams)
           const args = {
               inputparams:  JSON.parse(inputparams),
               outparams: JSON.parse(outparams),
