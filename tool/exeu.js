@@ -2,11 +2,11 @@ var exec = require('child_process').exec;
 function exec_python(path,args,callback1,callback2){
     let exec_l = 'python ' + path;
 
-    for(let key in args['inputparams']){
-        exec_l += '  --'+key+'='+args['inputparams'][key]
+    for(let param in args['inputparams']){
+        exec_l += '  --'+param['name']+'='+param['value'];
     }
-    for(let key in args['outparams']){
-        exec_l += '  --'+key+'='+args['outparams'][key]
+    for(let param in args['outparams']){
+        exec_l += '  --'+param['name']+'='+param['value'];
     }
     console.log(exec_l)
     exec(exec_l,function(error,stdout,stderr){
@@ -20,11 +20,11 @@ function exec_python(path,args,callback1,callback2){
 }
 function exec_R(path,args,callback1,callback2){
     let exec_l = 'Rscript ' + path;
-    for(let key in args['inputparams']){
-        exec_l += ' '+ args['inputparams'][key]
+    for(let param in args['inputparams']){
+        exec_l += '  '+param['value'];
     }
-    for(let key in args['outparams']){
-        exec_l += ' '+ args['outparams'][key]
+    for(let param in args['outparams']){
+        exec_l += '  '+param['value'];
     }
     console.log(exec_l)
     exec(exec_l,function(error,stdout,stderr){

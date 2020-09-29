@@ -49,7 +49,7 @@ const actionCreateTask = Action.Create({
           model: model,  
           status: '未执行',
           inputparams: inputparams,
-          outparams: inputparams,
+          outparams: outparams,
           createdAt: new Date().getTime()
       })
     let rawdata = await rawDataDao.findOne({
@@ -90,7 +90,6 @@ const actionCreateTask = Action.Create({
       const id= req.body.id;
       const status =req.body.status;
 
-      
       let t = await taskDao.findOne({
         id: id
       });
@@ -134,8 +133,8 @@ const actionCreateTask = Action.Create({
                 console.log(stdout)
             }
           const args = {
-              inputparams: inputparams,
-              outparams: outparams
+              inputparams:  JSON.parse(task.inputparams),
+              outparams: JSON.parse(task.outparams),
           }
           if (task.model.type == 'R'){
                 console.log('run R');
