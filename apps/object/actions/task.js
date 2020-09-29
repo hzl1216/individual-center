@@ -114,25 +114,28 @@ const actionCreateTask = Action.Create({
                 type:true,
                 url: true
                 },
+                inputparams:true,
+                outparams:true,
                 description: true,
                 status: true
             }
             });
-            let callback1 = function (err) {
+            let callback1 = function (err,exeu) {
 
                 t['status'] = '执行失败'
-                t['stdout'] = err;
+                t['stdout'] = exeu+ err;
                  taskDao.updateOne(t);
                 console.log(err)
             }
-            let callback2 = function(stdout) {
+            let callback2 = function(stdout,exeu) {
                 t['status'] = '执行成功';
-                t['stdout'] = stdout;
+                t['stdout'] = exeu+stdout;
                  taskDao.updateOne(t);
                 console.log(stdout)
             }
           const args = {
-            rawurl: task.rawdata.url,
+              inputparams: inputparams,
+              outparams: outparams
           }
           if (task.model.type == 'R'){
                 console.log('run R');
