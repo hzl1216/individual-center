@@ -24,7 +24,10 @@ const actionUpload= Action.Create({
     let form = new multiparty.Form();
     form.encoding = 'utf-8';
     let result ={};
-    form.uploadDir =path.join( path.dirname(require.main.filename),'upload/');
+    form.uploadDir =path.join( path.dirname(require.main.filename),'upload/'+req.session.User.loginName);
+    if (!fs.existsSync(form.uploadDir)){
+      fs.mkdir(form.uploadDir);
+    }
     form.parse(req, function(err, fields, files){
         if (err) throw  err;
         const inputFile = files.file[0];

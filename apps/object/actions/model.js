@@ -8,7 +8,8 @@ const {
     Model,
     Task, 
     RawData,
-    ProcessedData
+    ProcessedData,
+    Param
 } = require('../models/index')
 
   const actionCreateModel = Action.Create({
@@ -24,12 +25,13 @@ const {
     * @param {kexpress.HandleContext} ctx - The context data of kexpress.
     */
     async handler(req, res, ctx) {
-      const { modelDao } = ctx.store.default;
+      const { modelDao,paramDao } = ctx.store.default;
       const type=req.body.type;
       const description=req.body.description;
       const modelurl=req.body.modelurl;
-      const modelname=req.body.modelname;
-
+      const modelname= req.body.modelname;
+      const inputparams = JSON.parse(req.body.inputparams);
+      const outparams = JSON.parse(req.body.outparams);
       
       const one = await modelDao.findOne({
         name: modelname
@@ -45,6 +47,16 @@ const {
         status: '待审核',
         createdAt: new Date().getTime()
       });
+      for await (const param of inputparams) {
+        let p = new Param(param);
+        let object = await paramDao.create(p);
+        model['inputparams'].push(object);
+      }
+      for await (const param of outparams) {
+        let p = new Param(param);
+        let object = await paramDao.create(p);
+        model['outparams'].push(object);
+      }
       let m = await modelDao.create(model);
       res.json({
         msg: 'success',
@@ -123,6 +135,16 @@ const {
             status: true,
             createdAt: true,
             updatedAt: true,
+            inputparams:{
+                type:true,
+                default:true,
+                name: true
+            },
+            outparams:{
+                type:true,
+                default:true,
+                name: true
+            },
         }
     });
       res.json({
@@ -160,6 +182,16 @@ const {
         status: true,
         createdAt: true,
         updatedAt: true,
+        inputparams:{
+            type:true,
+            default:true,
+            name: true
+        },
+        outparams:{
+            type:true,
+            default:true,
+            name: true
+        },
     }
     });
     res.json(result);

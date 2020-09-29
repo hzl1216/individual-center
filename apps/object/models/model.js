@@ -6,7 +6,7 @@ const types = um.type;
 
 const UString = types.UString;
 const UDateTime = types.UDateTime;
-
+const UObjectArray = types.UObjectArray;
 const Model = model.createModel('Model', {
   objectId: UString(),
   url: UString(),
@@ -15,7 +15,13 @@ const Model = model.createModel('Model', {
   type: UString(),
   status: UString(),
   createdAt: UDateTime(),
-  updatedAt: UDateTime()
+  updatedAt: UDateTime(),
+  inputparams: UObjectArray({
+    type: 'Param'
+  }),
+  outparams: UObjectArray({
+    type: 'Param'
+  }),
 }, 'models');
 
 module.exports = {
