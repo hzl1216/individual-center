@@ -6,7 +6,8 @@ const router = require('./routes').router;
 const RequestChecker = require('kexpress-http').RequestChecker;
 const ResponseChecker = require('kexpress-http').ResponseChecker;
 const FieldsCheckerErrorHandler = require('../../common/prehandlers/fields').errorHandler;
-
+const PermissionChecker = require('../../common/prehandlers/permissionChecker')
+.PermissionChecker;
 const StoreManager = require('kexpress-store').StoreManager;
 const UniqueModelStore = require('kexpress-store-um').UniqueModelStore;
 const MongoSession = require('unique-model-mongodb').Session;
@@ -35,6 +36,7 @@ class Application extends kexpress.core.app.Application {
         })
       }
     }));
+    this.prehandle('permission', new PermissionChecker());
   }
 
   // Override

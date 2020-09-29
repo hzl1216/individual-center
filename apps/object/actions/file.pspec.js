@@ -22,7 +22,8 @@ module.exports = {
     store: {
       default: [
       ]
-    }
+    },
+    permission: 'login'
   },
   actionDownload: {
     request: {

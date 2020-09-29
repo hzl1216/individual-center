@@ -42,10 +42,7 @@ class PermissionChecker extends Prehandler {
       throw new errors.NoLoginError();
     }
 
-    const userDao = context.store.default.userDao;
-    const user = await userDao.findOne({
-      id: req.session.User.id
-    });
+    const user = req.session.User;
 
     if (!user) {
       logger.error(
