@@ -36,3 +36,4 @@ dist
 
 *.nginx.conf
 *.pm2.json
+upload/*
