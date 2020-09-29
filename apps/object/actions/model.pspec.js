@@ -3,7 +3,8 @@ const {
     Model,
     Task, 
     RawData,
-    ProcessedData
+    ProcessedData,
+    Param
 } = require('../models/index');
 const {
   TaskExist, ModelExist,ModelNotExist
@@ -17,7 +18,9 @@ module.exports = {
         type: 'string*',
         description: 'string*',
         modelurl: 'string*',
-        modelname: 'string*'
+        modelname: 'string*',
+        inputparams: 'string*',
+        outparams: 'string*',
       }
     },
     response: {
@@ -36,7 +39,8 @@ module.exports = {
     },
     store: {
       default: {
-        Model
+        Model, Param
+
       }
     }
   },

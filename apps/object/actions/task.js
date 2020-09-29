@@ -32,7 +32,8 @@ const actionCreateTask = Action.Create({
       const {taskDao, modelDao, rawDataDao, processedDataDao} = ctx.store.default;
       const rawurl = req.body.rawurl;
       const rawtype = req.body.rawtype;
-
+      const inputparams = JSON.parse(req.body.inputparams);
+      const outparams = JSON.parse(req.body.outparams);
       const model = await modelDao.findOne({
         name: req.body.modelname
       });
@@ -47,6 +48,8 @@ const actionCreateTask = Action.Create({
           description: description,
           model: model,  
           status: '未执行',
+          inputparams: JSON.stringify(inputparams),
+          outparams: JSON.stringify(outparams),
           createdAt: new Date().getTime()
       })
     let rawdata = await rawDataDao.findOne({
@@ -87,7 +90,6 @@ const actionCreateTask = Action.Create({
       const id= req.body.id;
       const status =req.body.status;
 
-      
       let t = await taskDao.findOne({
         id: id
       });
@@ -111,25 +113,36 @@ const actionCreateTask = Action.Create({
                 type:true,
                 url: true
                 },
+                inputparams:true,
+                outparams:true,
                 description: true,
                 status: true
             }
             });
-            let callback1 = function (err) {
+            let callback1 = function (err,exeu) {
 
                 t['status'] = '执行失败'
-                t['stdout'] = err;
+                t['stdout'] = exeu+ err;
                  taskDao.updateOne(t);
                 console.log(err)
             }
-            let callback2 = function(stdout) {
+            let callback2 = function(stdout,exeu) {
                 t['status'] = '执行成功';
-                t['stdout'] = stdout;
+                t['stdout'] = exeu+stdout;
                  taskDao.updateOne(t);
                 console.log(stdout)
             }
+            let inputparams = task.inputparams;
+            let outparams = task.outparams;
+          if (!inputparams) {
+              inputparams = '[]'
+          }
+          if (!outparams) {
+            outparams = '[]'
+        } 
           const args = {
-            rawurl: task.rawdata.url,
+              inputparams:  JSON.parse(inputparams),
+              outparams: JSON.parse(outparams),
           }
           if (task.model.type == 'R'){
                 console.log('run R');
