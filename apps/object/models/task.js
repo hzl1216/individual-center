@@ -25,7 +25,7 @@ const Task = model.createModel('Task', {
   createdAt: UDateTime(),
   updatedAt: UDateTime(),
   inputparams: UString(),
-  outputparams: UString()
+  outparams: UString()
 }, 'tasks');
 
 module.exports = {
