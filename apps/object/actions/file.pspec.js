@@ -42,7 +42,7 @@ module.exports = {
       },
       403: {
         errors: {
-          PrivilegeLimited,
+          PrivilegeLimited
         }
       },
       contentType: 'application/json'
@@ -50,6 +50,7 @@ module.exports = {
     store: {
       default: [
       ]
-    }
+    },
+    permission: 'login'
   }
 };
