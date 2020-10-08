@@ -30,6 +30,7 @@ const actionUpload= Action.Create({
     }
     form.parse(req, function(err, fields, files){
         if (err) throw  err;
+        console.log(files);
         const inputFile = files.file[0];
         fs.renameSync(inputFile.path, form.uploadDir+inputFile.originalFilename, function (err) {
             if (err) {
