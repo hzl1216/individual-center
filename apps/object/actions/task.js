@@ -126,16 +126,14 @@ const actionCreateTask = Action.Create({
 
                 t['status'] = '执行失败'
                 t['stdout'] = exeu+ err;
-                t['outparams'] =  stringify.parse(outparams)
+                t['outparams'] =  JSON.stringify(outparams);
                 taskDao.updateOne(t);
-                console.log(err)
             }
             let callback2 = function(stdout,exeu) {
                 t['status'] = '执行成功';
                 t['stdout'] = exeu+stdout;
-                t['outparams'] = stringify.parse(outparams)
+                t['outparams'] = JSON.stringify(outparams);
                 taskDao.updateOne(t);
-                console.log(stdout)
             }
             let inputparams = task.inputparams;
             let outparams = task.outparams;
