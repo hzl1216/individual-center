@@ -147,13 +147,13 @@ const actionCreateTask = Action.Create({
         for(var i=0;i<inputparams.length;i++)
         {
             if (inputparams[i]['type'] == '文件'){
-              inputparams[i]['value'] = path.join(home, inputparams[i]['value']);
+              inputparams[i]['value'] = path.join(home, inputparams[i]['default']);
             }
         }
         for(var i=0;i<outparams.length;i++)
         {
             if (outparams[i]['type'] == '文件'){
-              outparams[i]['value'] = path.join(home, outparams[i]['value']);
+              outparams[i]['value'] = path.join(home, outparams[i]['default']);
             }
         }
           const args = {
