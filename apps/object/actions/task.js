@@ -32,8 +32,8 @@ const actionCreateTask = Action.Create({
       const {taskDao, modelDao, rawDataDao, processedDataDao} = ctx.store.default;
       const rawurl = req.body.rawurl;
       const rawtype = req.body.rawtype;
-      const inputparams = JSON.parse(req.body.inputparams);
-      const outparams = JSON.parse(req.body.outparams);
+      const inputparams = req.body.inputparams;
+      const outparams = req.body.outparams;
       const model = await modelDao.findOne({
         name: req.body.modelname
       });
@@ -48,8 +48,8 @@ const actionCreateTask = Action.Create({
           description: description,
           model: model,  
           status: '未执行',
-          inputparams: JSON.stringify(inputparams),
-          outparams: JSON.stringify(outparams),
+          inputparams: inputparams,
+          outparams: outparams,
           createdAt: new Date().getTime()
       })
     let rawdata = await rawDataDao.findOne({
@@ -209,6 +209,8 @@ const actionCreateTask = Action.Create({
             stdout:true,
             createdAt: true,
             updatedAt: true,
+            inputparams: true,
+            outputparams: true
         }
     });
       res.json({
