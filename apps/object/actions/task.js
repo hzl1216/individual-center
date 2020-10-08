@@ -1,6 +1,7 @@
 'use strict';
 
 const kexpress = require('kexpress');
+const path = require('path');
 const Action = kexpress.core.action.Action;
 const {
     exec_python,
@@ -33,7 +34,7 @@ const actionCreateTask = Action.Create({
       const rawurl = req.body.rawurl;
       const rawtype = req.body.rawtype;
       const inputparams = req.body.inputparams;
-      const outparams = req.body.outparams;
+      const outparams =  req.body.outparams;
       const model = await modelDao.findOne({
         name: req.body.modelname
       });
@@ -86,6 +87,7 @@ const actionCreateTask = Action.Create({
     * @param {kexpress.HandleContext} ctx - The context data of kexpress.
     */
     async handler(req, res, ctx) {
+      const home =path.join( path.dirname(require.main.filename),'upload/'+req.session.User.loginName+'/');
       const { taskDao } = ctx.store.default;
       const id= req.body.id;
       const status =req.body.status;
@@ -140,10 +142,25 @@ const actionCreateTask = Action.Create({
           if (!outparams) {
             outparams = '[]'
         } 
+        inputparams=JSON.parse(inputparams);
+        outparams=JSON.parse(outparams);
+        for(var i=0;i<inputparams.length;i++)
+        {
+            if (inputparams[i]['type'] == '文件'){
+              inputparams[i]['value'] = path.join(home, inputparams[i]['value']);
+            }
+        }
+        for(var i=0;i<outparams.length;i++)
+        {
+            if (outparams[i]['type'] == '文件'){
+              outparams[i]['value'] = path.join(home, outparams[i]['value']);
+            }
+        }
           const args = {
-              inputparams:  JSON.parse(inputparams),
-              outparams: JSON.parse(outparams),
+            inputparams: inputparams,
+            outparams: outparams
           }
+
           if (task.model.type == 'R'){
                 console.log('run R');
               exec_R(task.model.url,args,callback1,callback2)
