@@ -16,6 +16,7 @@ const {
 } = require('../models/index');
 const rawdata = require('../models/rawdata');
 const { type } = require('unique-model');
+const { stringify } = require('querystring');
 
 const actionCreateTask = Action.Create({
 
@@ -125,13 +126,15 @@ const actionCreateTask = Action.Create({
 
                 t['status'] = '执行失败'
                 t['stdout'] = exeu+ err;
-                 taskDao.updateOne(t);
+                t['outparams'] =  stringify.parse(outparams)
+                taskDao.updateOne(t);
                 console.log(err)
             }
             let callback2 = function(stdout,exeu) {
                 t['status'] = '执行成功';
                 t['stdout'] = exeu+stdout;
-                 taskDao.updateOne(t);
+                t['outparams'] = stringify.parse(outparams)
+                taskDao.updateOne(t);
                 console.log(stdout)
             }
             let inputparams = task.inputparams;
@@ -227,7 +230,7 @@ const actionCreateTask = Action.Create({
             createdAt: true,
             updatedAt: true,
             inputparams: true,
-            outputparams: true
+            outparams: true
         }
     });
       res.json({
