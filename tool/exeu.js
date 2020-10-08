@@ -22,13 +22,13 @@ function exec_python(path,args,callback1,callback2){
 function exec_R(path,args,callback1,callback2){
     let exec_l = 'Rscript ' + path;
     for(var i=0;i<args['inputparams'].length;i++)
-        {
-            exec_l += '  '+args['inputparams'][i]['value'];
-        }
+    {
+        exec_l += '  --'+args['inputparams'][i]['name']+'='+args['inputparams'][i]['value'];
+    }
     for(var i=0;i<args['outparams'].length;i++)
-        {
-            exec_l += '  '+args['outparams'][i]['value'];
-        }
+    {
+        exec_l += '  --'+args['outparams'][i]['name']+'='+args['outparams'][i]['value'];
+    }
     console.log(exec_l)
     exec(exec_l,function(error,stdout,stderr){
         if(error) {
