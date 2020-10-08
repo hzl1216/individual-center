@@ -61,12 +61,12 @@ const actionDownload= Action.Create({
   
   async handler(req, res,ctx) {
     
-    let path = req.query.path;
+    let paths = req.query.path;
     home = path.join( path.dirname(require.main.filename),'upload/'+req.session.User.loginName+'/');
-    if(! home in path) {
+    if(! home in paths) {
       throw new ctx.errors.PrivilegeLimited();
     }
-    res.download(path); 
+    res.download(paths); 
   }
 });
 
