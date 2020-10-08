@@ -63,7 +63,7 @@ const actionDownload= Action.Create({
     
     let paths = req.query.path;
     const home = path.join( path.dirname(require.main.filename),'upload/'+req.session.User.loginName+'/');
-    if(! home in paths) {
+    if(! paths.contains(home)) {
       throw new ctx.errors.PrivilegeLimited();
     }
     res.download(paths); 
