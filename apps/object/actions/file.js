@@ -59,9 +59,13 @@ const actionDownload= Action.Create({
   * @param {kexpress.HandleContext} ctx - The context data of kexpress.
   */
   
-  async handler(req, res) {
+  async handler(req, res,ctx) {
     
     let path = req.query.path;
+    home =path.join( path.dirname(require.main.filename),'upload/'+req.session.User.loginName+'/');
+    if(! home in path) {
+      throw new ctx.errors.PrivilegeLimited();
+    }
     res.download(path); 
   }
 });

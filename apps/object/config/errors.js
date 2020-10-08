@@ -65,5 +65,15 @@ module.exports = {
     id: 30004,
     message: '任务不存在',
     status: 404
+  },
+  IndividualNotFound: {
+    id: 2001,
+    message: '个体不存在',
+    status: 404
+  },
+  PrivilegeLimited: {
+    id: 5001,
+    message: '权限受限',
+    status: 403
   }
 };
