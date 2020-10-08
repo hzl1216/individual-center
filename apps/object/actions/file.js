@@ -30,8 +30,9 @@ const actionUpload= Action.Create({
     }
     form.parse(req, function(err, fields, files){
         if (err) throw  err;
-        const inputFile = files.file[0];
-        fs.renameSync(inputFile.path, form.uploadDir+inputFile.originalFilename, function (err) {
+        const inputFiles = files.file;
+        for (const inputFile of inputFiles ){
+          fs.renameSync(inputFile.path, form.uploadDir+inputFile.originalFilename, function (err) {
             if (err) {
                 console.log('rename error: ' + err);
             } else {
@@ -39,6 +40,8 @@ const actionUpload= Action.Create({
             }
         });
         result['path'] = form.uploadDir+inputFile.originalFilename;
+        }
+
         res.json(result);
     });
   }
