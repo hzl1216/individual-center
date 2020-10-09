@@ -29,7 +29,7 @@ const actionUpload= Action.Create({
       fs.mkdirSync(form.uploadDir);
     }
     form.parse(req, function(err, fields, files){
-        if (err) throw  err;
+        if (err) res.json(err);
         const inputFiles = files.file;
         for (const inputFile of inputFiles ){
           fs.renameSync(inputFile.path, form.uploadDir+inputFile.originalFilename, function (err) {
