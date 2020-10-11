@@ -42,7 +42,9 @@ module.exports = {
         Model, Param
 
       }
-    }
+    },
+    permission: 'login'
+
   },
   actionUpdateModel: {
     request: {

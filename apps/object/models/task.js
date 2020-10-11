@@ -9,6 +9,7 @@ const UObject = types.UObject;
 const UDateTime = types.UDateTime;
 
 const Task = model.createModel('Task', {
+  username: UString(),
   name: UString(),
   description: UString(),
   model: UObject({

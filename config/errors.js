@@ -12,7 +12,7 @@ module.exports = {
   },
   NoLoginError: {
     id: 102,
-    message: 'You are not yet logged in.',
+    message: 'You are not yet logged in or logged in elsewhere. Please log in again!',
     status: 401
   },
   PermissionError: {

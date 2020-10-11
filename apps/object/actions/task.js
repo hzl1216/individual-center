@@ -46,6 +46,7 @@ const actionCreateTask = Action.Create({
       const taskname=model.name+'_'+count;
       const description=model.description; 
       const task = new Task({
+          username: req.session.User.loginName,
           name: taskname,
           description: description,
           model: model,  
@@ -104,6 +105,7 @@ const actionCreateTask = Action.Create({
       if (status == '执行中'){
         let task = await t.$extract({
             includes: {
+                username: true,
                 rawdata : {
                     url: true,
                     type: true

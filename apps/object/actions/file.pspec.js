@@ -1,7 +1,7 @@
 'use strict';
 
 const {
-  FileNotFound
+  FileNotFound,PrivilegeLimited
 } = require('../config/errors');
 module.exports = {
   actionUpload: {
@@ -37,7 +37,12 @@ module.exports = {
       },
       404: {
         errors: {
-          FileNotFound
+          FileNotFound,
+        }
+      },
+      403: {
+        errors: {
+          PrivilegeLimited
         }
       },
       contentType: 'application/json'
@@ -45,6 +50,7 @@ module.exports = {
     store: {
       default: [
       ]
-    }
+    },
+    permission: 'login'
   }
 };
