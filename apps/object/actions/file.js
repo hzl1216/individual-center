@@ -23,10 +23,10 @@ const actionUpload= Action.Create({
     const home = path.join( path.dirname(require.main.filename),'upload/'+req.session.User.loginName+'/');
     const form = new Multiparty({
       uploadDir: home,
+      maxFilesSize: 2 * 1024 * 1024,
       encoding: 'utf-8'
     });
     let result ={};
-    try{
     const content = await form.parse(req);
     for(const file of content.files.file){
       fs.renameSync(file.path, home+file.originalFilename, function (err) {
@@ -39,12 +39,6 @@ const actionUpload= Action.Create({
     result['path'] = home+file.originalFilename;
     }
         res.json(result);
-  }catch(e){
-    console.log(e);
-    res.json({
-      error: e
-    });
-  }
   }
 });
 
