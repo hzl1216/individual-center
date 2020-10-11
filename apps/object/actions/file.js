@@ -21,7 +21,6 @@ const actionUpload= Action.Create({
   
   async handler(req, res) {
     const home = path.join( path.dirname(require.main.filename),'upload/'+req.session.User.loginName+'/');
-    console.log(home);
     const form = new Multiparty({
       uploadDir: home,
       encoding: 'utf-8'
@@ -41,9 +40,10 @@ const actionUpload= Action.Create({
     }
         res.json(result);
   }catch(e){
+    console.log(e);
     res.json({
       error: e
-    })
+    });
   }
   }
 });
