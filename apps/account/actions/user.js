@@ -168,6 +168,7 @@ const actionLogout = Action.Create({
     if (!req.session.User) {
       throw new ctx.errors.UserNotFound();
     }
+    const name = req.session.User.loginName;
     const session = await sessionDao.findOne({
       id: req.session.User.session.id,
     });
@@ -181,6 +182,8 @@ const actionLogout = Action.Create({
   });
     delete req.session.User;
     res.json({
+      name: name,
+      msg: 'logout success'
     });
   }
 });
