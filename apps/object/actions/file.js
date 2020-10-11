@@ -27,8 +27,8 @@ const actionUpload= Action.Create({
       encoding: 'utf-8'
     });
     let result ={};
+    try{
     const content = await form.parse(req);
-    console.log(content);
     for(const file of content.files.file){
       fs.renameSync(file.path, home+file.originalFilename, function (err) {
         if (err) {
@@ -40,6 +40,11 @@ const actionUpload= Action.Create({
     result['path'] = home+file.originalFilename;
     }
         res.json(result);
+  }catch(e){
+    res.json({
+      error: e
+    })
+  }
   }
 });
 
