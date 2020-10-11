@@ -1,13 +1,17 @@
 var exec = require('child_process').exec;
 function exec_python(path,args,callback1,callback2){
     let exec_l = 'python ' + path;
+    if(args['inputparams'][0]['name'] != ""){
     for(var i=0;i<args['inputparams'].length;i++)
     {
         exec_l += '  --'+args['inputparams'][i]['name']+'='+args['inputparams'][i]['value'];
     }
+    }
+    if(args['outparams'][0]['name'] != ""){
     for(var i=0;i<args['outparams'].length;i++)
     {
         exec_l += '  --'+args['outparams'][i]['name']+'='+args['outparams'][i]['value'];
+    }
     }
     console.log(exec_l)
     exec(exec_l,function(error,stdout,stderr){
@@ -21,13 +25,17 @@ function exec_python(path,args,callback1,callback2){
 }
 function exec_R(path,args,callback1,callback2){
     let exec_l = 'Rscript ' + path;
+    if(args['inputparams'][0]['name'] != ""){
     for(var i=0;i<args['inputparams'].length;i++)
     {
         exec_l += '  --'+args['inputparams'][i]['name']+'='+args['inputparams'][i]['value'];
     }
+    }
+    if(args['outparams'][0]['name'] != ""){
     for(var i=0;i<args['outparams'].length;i++)
     {
         exec_l += '  --'+args['outparams'][i]['name']+'='+args['outparams'][i]['value'];
+    }
     }
     console.log(exec_l)
     exec(exec_l,function(error,stdout,stderr){
