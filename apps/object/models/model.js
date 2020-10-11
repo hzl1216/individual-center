@@ -8,6 +8,7 @@ const UString = types.UString;
 const UDateTime = types.UDateTime;
 const UObjectArray = types.UObjectArray;
 const Model = model.createModel('Model', {
+  username: UString(),
   objectId: UString(),
   url: UString(),
   name: UString(),

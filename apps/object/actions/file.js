@@ -4,7 +4,7 @@ const kexpress = require('kexpress');
 const Action = kexpress.core.action.Action;
 const path = require('path');
 const prehandlers = require('./file.pspec');
-const multiparty = require('multiparty');
+const Multiparty = require('../../../tool/promisifymultiparty');
 const fs = require("fs")
 
 const actionUpload= Action.Create({
@@ -19,31 +19,27 @@ const actionUpload= Action.Create({
   * @param {kexpress.HandleContext} ctx - The context data of kexpress.
   */
   
-  async handler(req, res, ctx) {
-    
-    let form = new multiparty.Form();
-    form.encoding = 'utf-8';
-    let result ={};
-    form.uploadDir =path.join( path.dirname(require.main.filename),'upload/'+req.session.User.loginName+'/');
-    if (!fs.existsSync(form.uploadDir)){
-      fs.mkdirSync(form.uploadDir);
-    }
-    form.parse(req, function(err, fields, files){
-        if (err) res.json(err);
-        const inputFiles = files.file;
-        for (const inputFile of inputFiles ){
-          fs.renameSync(inputFile.path, form.uploadDir+inputFile.originalFilename, function (err) {
-            if (err) {
-                console.log('rename error: ' + err);
-            } else {
-                console.log('rename ok');
-            }
-        });
-        result['path'] = form.uploadDir+inputFile.originalFilename;
-        }
-
-        res.json(result);
+  async handler(req, res) {
+    const home = path.join( path.dirname(require.main.filename),'upload/'+req.session.User.loginName+'/');
+    console.log(home);
+    const form = new Multiparty({
+      uploadDir: home,
+      encoding: 'utf-8'
     });
+    let result ={};
+    const content = await form.parse(req);
+    console.log(content);
+    for(const file of content.files.file){
+      fs.renameSync(file.path, home+file.originalFilename, function (err) {
+        if (err) {
+            console.log('rename error: ' + err);
+        } else {
+            console.log('rename ok');
+        }
+    });
+    result['path'] = home+file.originalFilename;
+    }
+        res.json(result);
   }
 });
 

@@ -45,7 +45,8 @@ module.exports = {
         RawData,
         ProcessedData
       }
-    }
+    },
+    permission: 'login'
   },
   actionUpdateStatus: {
     request: {

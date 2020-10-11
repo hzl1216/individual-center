@@ -40,6 +40,7 @@ const {
         throw new ctx.errors.ModelExist();
       }
       const model = new Model({
+        username: req.session.User.loginName,
         name: modelname,
         url: modelurl,
         type: type,
@@ -128,6 +129,7 @@ const {
      
       let result = await   Model.$extractArray(models, {
         includes: {
+            username: true,
             name : true,
             url: true,
             description: true,
@@ -175,6 +177,7 @@ const {
     }
     let result = await one.$extract({
     includes: {
+        username: true,
         name : true,
         url: true,
         description: true,
