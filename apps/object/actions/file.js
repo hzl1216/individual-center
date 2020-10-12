@@ -30,7 +30,7 @@ const actionUpload= Action.Create({
     }
     form.parse(req, function(err, fields, files){
         if (err) res.json(err);
-        if (!file || !files.file){
+        if (!files || !files.file){
           res.json({
             msg: 'stop upload'
           });
