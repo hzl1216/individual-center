@@ -1,6 +1,0 @@
-IndividualId	KRAS	BRAF	PrimaryPurity	Gender	Age	AgeGrp	Stage	LM	Metastasis	PreTherapy	CEA	ClinicalId	Grade	Histology	Tissue	MSI	site
-CCRC0323	Mutant	WT	70	male	74	>=50	IV	LM	M	No	1.23	160.37	Moderately differentiated		Colon	MSI-H	2
-CCRC0381	Unknown	Unknown	80	male	64	>=50	IV	LM	M	Yes	1.93	2.0	Moderately differentiated		Rectum	MSS	3
-CCRC0382	WT	WT	80	male	70	>=50	IV	LM	M	Yes	9.57	15.68	Moderately differentiated		Colon	MSS	2
-CCRC0397	WT	WT	80	male	53	>=50	IV	LM	M	No	1.93	2.84	Poorly differentiated adenocarcinoma		Rectum	MSS	3
-CCRC0398	Unknown	Unknown	50	female	55	>=50	IV	LM	M	No	276.52	1200.0	Poorly differentiated adenocarcinoma	Mucinous adenocarcinoma	Colon	MSS	1

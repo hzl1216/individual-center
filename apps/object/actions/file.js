@@ -30,6 +30,11 @@ const actionUpload= Action.Create({
     }
     form.parse(req, function(err, fields, files){
         if (err) res.json(err);
+        if (!file || !files.file){
+          res.json({
+            msg: 'stop upload'
+          });
+        }
         const inputFiles = files.file;
         for (const inputFile of inputFiles ){
           fs.renameSync(inputFile.path, form.uploadDir+inputFile.originalFilename, function (err) {
