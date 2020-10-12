@@ -31,9 +31,7 @@ const actionUpload= Action.Create({
     form.parse(req, function(err, fields, files){
         if (err) res.json(err);
         if (!files || !files.file){
-          res.json({
-            msg: 'stop upload'
-          });
+          throw new ctx.errors.UploadFailed();
         }
         const inputFiles = files.file;
         for (const inputFile of inputFiles ){

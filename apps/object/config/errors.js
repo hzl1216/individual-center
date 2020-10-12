@@ -95,5 +95,11 @@ module.exports = {
     id: 5001,
     message: '权限受限',
     status: 403
+  },
+  UploadFailed: {
+    id: 5002,
+    message: '文件上传失败',
+    status: 403
+
   }
 };

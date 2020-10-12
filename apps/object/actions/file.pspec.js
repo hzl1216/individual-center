@@ -1,7 +1,7 @@
 'use strict';
 
 const {
-  FileNotFound,PrivilegeLimited
+  FileNotFound,PrivilegeLimited,UploadFailed
 } = require('../config/errors');
 module.exports = {
   actionUpload: {
@@ -12,9 +12,9 @@ module.exports = {
     response: {
       200: {
       },
-      404: {
+      403: {
         errors: {
-          FileNotFound
+          UploadFailed
         }
       },
       contentType: 'application/json'
