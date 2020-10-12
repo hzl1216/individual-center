@@ -20,8 +20,8 @@ class Application extends kexpress.core.app.Application {
     this.use(kexpress.middlewares.access.createWatcher(this.loggers.access));
     this.use(kexpress.middlewares.httpSession.createHttpSession(this.config.session));
     
-    this.use(bodyParser.json({limit: '5gb'}));
-    this.use(bodyParser.urlencoded({limit: '5gb', extended: true}));
+    this.use(bodyParser.json({limit: '5000mb'}));
+    this.use(bodyParser.urlencoded({limit: '5000mb', extended: true}));
     this.prehandle('request', new RequestChecker(FieldsCheckerErrorHandler, {
       schema: 'kexpress'
     }));
