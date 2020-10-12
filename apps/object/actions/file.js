@@ -31,19 +31,22 @@ const actionUpload= Action.Create({
     form.parse(req, function(err, fields, files){
         if (err) res.json(err);
         if (!files || !files.file){
-          throw new ctx.errors.UploadFailed();
+          result['msg']='上传文件失败'
+        }else
+        {
+          const inputFiles = files.file;
+          for (const inputFile of inputFiles ){
+            fs.renameSync(inputFile.path, form.uploadDir+inputFile.originalFilename, function (err) {
+              if (err) {
+                  console.log('rename error: ' + err);
+              } else {
+                  console.log('rename ok');
+              }
+          });
+          result['path'] = form.uploadDir+inputFile.originalFilename;
+          }
         }
-        const inputFiles = files.file;
-        for (const inputFile of inputFiles ){
-          fs.renameSync(inputFile.path, form.uploadDir+inputFile.originalFilename, function (err) {
-            if (err) {
-                console.log('rename error: ' + err);
-            } else {
-                console.log('rename ok');
-            }
-        });
-        result['path'] = form.uploadDir+inputFile.originalFilename;
-        }
+
 
         res.json(result);
     });

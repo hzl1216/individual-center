@@ -100,6 +100,5 @@ module.exports = {
     id: 5002,
     message: '文件上传失败',
     status: 403
-
   }
 };
