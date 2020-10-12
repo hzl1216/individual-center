@@ -31,9 +31,8 @@ const actionUpload= Action.Create({
     form.parse(req, function(err, fields, files){
         if (err) res.json(err);
         if (!files || !files.file){
-          result['msg']='上传文件失败'
-        }else
-        {
+          console.log('文件上传未完成');
+        }else{
           const inputFiles = files.file;
           for (const inputFile of inputFiles ){
             fs.renameSync(inputFile.path, form.uploadDir+inputFile.originalFilename, function (err) {
@@ -45,10 +44,11 @@ const actionUpload= Action.Create({
           });
           result['path'] = form.uploadDir+inputFile.originalFilename;
           }
+          res.json(result);
         }
 
 
-        res.json(result);
+
     });
   }
 });
