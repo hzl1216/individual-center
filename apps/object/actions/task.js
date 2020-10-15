@@ -128,12 +128,14 @@ const actionCreateTask = Action.Create({
 
                 t['status'] = '执行失败'
                 t['stdout'] = exeu+ err;
+                console.log(exeu+ err);
                 t['outparams'] =  JSON.stringify(outparams);
                 taskDao.updateOne(t);
             }
             let callback2 = function(stdout,exeu) {
                 t['status'] = '执行成功';
                 t['stdout'] = exeu+stdout;
+                console.log(exeu+ stdout);
                 t['outparams'] = JSON.stringify(outparams);
                 taskDao.updateOne(t);
             }
@@ -165,12 +167,12 @@ const actionCreateTask = Action.Create({
           }
 
           if (task.model.type == 'R'){
-                console.log('run R');
-              exec_R(task.model.url,args,callback1,callback2)
+              console.log('run R');
+              exec_R(task.model.url,args,callback1,callback2);
           }
           if (task.model.type == 'python'){
             console.log('run python');
-            exec_python(task.model.url,args,callback1,callback2)
+            exec_python(task.model.url,args,callback1,callback2);
         }
       }
 
