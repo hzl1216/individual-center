@@ -175,9 +175,9 @@ const actionUpdateDrug = Action.Create({
     const drugDao = ctx.store.default.drugDao;
     for await (let drug of drugs) {
         let one =  await drugDao.findOne({
-            DrugName: DrugName,
+            DrugName: drug['英文通用名'],
           });
-          
+        
         if (!one){
           throw  new ctx.errors.DrugNotFound();
         }
@@ -216,7 +216,7 @@ const actionDeleteDrug = Action.Create({
     if (!one){
     throw new ctx.errors.DrugNotFound();
     }
-    const targets = await clinicalDao.load(one.targets);
+    const targets = await targetDao.load(one.targets);
     for await(const target of targets ) {
       await targetDao.remove(target);
     }
