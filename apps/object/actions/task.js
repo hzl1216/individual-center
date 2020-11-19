@@ -233,8 +233,10 @@ const actionCreateTask = Action.Create({
             outparams: true
         }
     });
+    const count = await taskDao.count();
       res.json({
         result: result,
+        count: count
       });
     }
   });
