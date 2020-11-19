@@ -106,6 +106,7 @@ const actionCreateTask = Action.Create({
         let task = await t.$extract({
             includes: {
                 username: true,
+                name: true,
                 rawdata : {
                     url: true,
                     type: true
@@ -124,16 +125,22 @@ const actionCreateTask = Action.Create({
                 status: true
             }
             });
-            let callback1 = function (err,exeu) {
+            let callback1 = function (err,exeu, log) {
 
                 t['status'] = '执行失败'
                 t['stdout'] = exeu+ err;
+                t['log'] = log
+                t['finishedAt'] = new Date();
+                console.log(exeu+ err);
                 t['outparams'] =  JSON.stringify(outparams);
                 taskDao.updateOne(t);
             }
-            let callback2 = function(stdout,exeu) {
+            let callback2 = function(stdout,exeu, log) {
                 t['status'] = '执行成功';
                 t['stdout'] = exeu+stdout;
+                t['log'] = log
+                t['finishedAt'] = new Date();
+                console.log(exeu+ stdout);
                 t['outparams'] = JSON.stringify(outparams);
                 taskDao.updateOne(t);
             }
@@ -161,16 +168,17 @@ const actionCreateTask = Action.Create({
         }
           const args = {
             inputparams: inputparams,
-            outparams: outparams
+            outparams: outparams,
+            log : path.join(home, task.name+'.log')
           }
 
           if (task.model.type == 'R'){
-                console.log('run R');
-              exec_R(task.model.url,args,callback1,callback2)
+              console.log('run R');
+              exec_R(task.model.url,args,callback1,callback2);
           }
           if (task.model.type == 'python'){
             console.log('run python');
-            exec_python(task.model.url,args,callback1,callback2)
+            exec_python(task.model.url,args,callback1,callback2);
         }
       }
 
@@ -225,10 +233,12 @@ const actionCreateTask = Action.Create({
                 url: true,
                 type: true
             },
+            log: true,
             status: true,
             stdout:true,
             createdAt: true,
             updatedAt: true,
+            finishedAt: true,
             inputparams: true,
             outparams: true
         }
