@@ -106,6 +106,7 @@ const actionCreateTask = Action.Create({
         let task = await t.$extract({
             includes: {
                 username: true,
+                name: true,
                 rawdata : {
                     url: true,
                     type: true
@@ -163,9 +164,10 @@ const actionCreateTask = Action.Create({
         }
           const args = {
             inputparams: inputparams,
-            outparams: outparams
+            outparams: outparams,
+            log : path.join(home, task.name+'.log')
           }
-
+          t.log = args.log
           if (task.model.type == 'R'){
               console.log('run R');
               exec_R(task.model.url,args,callback1,callback2);
@@ -227,6 +229,7 @@ const actionCreateTask = Action.Create({
                 url: true,
                 type: true
             },
+            log: true,
             status: true,
             stdout:true,
             createdAt: true,

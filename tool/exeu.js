@@ -1,6 +1,6 @@
 var exec = require('child_process').exec;
 function exec_python(path,args,callback1,callback2){
-    let exec_l = 'python ' + path;
+    let exec_l = 'nohup python ' + path;
     if(args['inputparams'][0]['name'] != ""){
     for(var i=0;i<args['inputparams'].length;i++)
     {
@@ -13,6 +13,7 @@ function exec_python(path,args,callback1,callback2){
         exec_l += '  --'+args['outparams'][i]['name']+'='+args['outparams'][i]['value'];
     }
     }
+    exec_l+= '>'+args.log+ '2>&1 &'
     console.log(exec_l)
     exec(exec_l,function(error,stdout,stderr){
         if(error) {
@@ -24,7 +25,7 @@ function exec_python(path,args,callback1,callback2){
 
 }
 function exec_R(path,args,callback1,callback2){
-    let exec_l = 'Rscript ' + path;
+    let exec_l = 'nohup Rscript ' + path;
     if(args['inputparams'][0]['name'] != ""){
     for(var i=0;i<args['inputparams'].length;i++)
     {
@@ -37,6 +38,7 @@ function exec_R(path,args,callback1,callback2){
         exec_l += '  --'+args['outparams'][i]['name']+'='+args['outparams'][i]['value'];
     }
     }
+    exec_l+= '>'+args.log+ '2>&1 &'
     console.log(exec_l)
     exec(exec_l,function(error,stdout,stderr){
         if(error) {
