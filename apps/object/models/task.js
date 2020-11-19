@@ -26,6 +26,7 @@ const Task = model.createModel('Task', {
   stdout: UString(),
   createdAt: UDateTime(),
   updatedAt: UDateTime(),
+  finishedAt: UDateTime(),
   inputparams: UString(),
   outparams: UString()
 }, 'tasks');
