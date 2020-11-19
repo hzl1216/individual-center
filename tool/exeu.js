@@ -17,7 +17,7 @@ function exec_python(path,args,callback1,callback2){
     console.log(exec_l)
     exec(exec_l,function(error,stdout,stderr){
         if(error) {
-            callback1(stderr,exec_l)
+            callback1(stderr,exec_l,args.log)
         }else{
             callback2(stdout,exec_l);
         }

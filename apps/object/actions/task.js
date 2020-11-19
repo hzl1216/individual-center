@@ -125,17 +125,19 @@ const actionCreateTask = Action.Create({
                 status: true
             }
             });
-            let callback1 = function (err,exeu) {
+            let callback1 = function (err,exeu, log) {
 
                 t['status'] = '执行失败'
                 t['stdout'] = exeu+ err;
+                t['log'] = log
                 console.log(exeu+ err);
                 t['outparams'] =  JSON.stringify(outparams);
                 taskDao.updateOne(t);
             }
-            let callback2 = function(stdout,exeu) {
+            let callback2 = function(stdout,exeu, log) {
                 t['status'] = '执行成功';
                 t['stdout'] = exeu+stdout;
+                t['log'] = log
                 console.log(exeu+ stdout);
                 t['outparams'] = JSON.stringify(outparams);
                 taskDao.updateOne(t);
@@ -167,7 +169,7 @@ const actionCreateTask = Action.Create({
             outparams: outparams,
             log : path.join(home, task.name+'.log')
           }
-          t.log = args.log
+
           if (task.model.type == 'R'){
               console.log('run R');
               exec_R(task.model.url,args,callback1,callback2);

@@ -22,6 +22,7 @@ const Task = model.createModel('Task', {
     type: 'ProcessedData'
   }),
   status: UString(),
+  log: UString(),
   stdout: UString(),
   createdAt: UDateTime(),
   updatedAt: UDateTime(),
