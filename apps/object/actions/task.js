@@ -233,7 +233,6 @@ const actionCreateTask = Action.Create({
                 url: true,
                 type: true
             },
-            log: true,
             status: true,
             stdout:true,
             createdAt: true,
@@ -299,8 +298,18 @@ const actionCreateTask = Action.Create({
             outparams: true
         }
     });
+    let str;
+    await fs.readFile(task.log, function(err, data){
+      if(err){
+          console.log(err);
+      }else{
+           str = marked(data.toString());
+          console.log(str);
+      } 
+  });
       res.json({
         result: result,
+        log: str
       });
     }
   });
