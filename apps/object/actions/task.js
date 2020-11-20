@@ -2,7 +2,8 @@
 
 const kexpress = require('kexpress');
 const path = require('path');
-const fs = require("fs")
+const fs = require("fs");
+const marked = require( "marked" );
 const Action = kexpress.core.action.Action;
 const {
     exec_python,
