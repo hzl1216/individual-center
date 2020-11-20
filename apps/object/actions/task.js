@@ -267,7 +267,7 @@ const actionCreateTask = Action.Create({
           where['id'] = req.query.id;
       }
       if (req.query.name) {
-        where['id'] = req.query.name;
+        where['name'] = req.query.name;
     }
 
 
