@@ -35,16 +35,24 @@ class PermissionChecker extends Prehandler {
     }
 
     if (
+      (
       !Reflect.has(req, 'session') ||
       !Reflect.has(req.session, 'User') ||
-      !Reflect.has(req.session.User, 'id')
+      !Reflect.has(req.session.User, 'id') 
+      )
+      &&
+      (
+      !Reflect.has(req, 'session') ||
+      !Reflect.has(req.session, 'Guest') ||
+      !Reflect.has(req.session.Guest, 'id')
+      )
     ) {
       throw new errors.NoLoginError();
     }
 
     const user = req.session.User;
-
-    if (!user) {
+    const guest =  req.session.Guest;
+    if (!user && !guest) {
       logger.error(
         `${req.session.User.id} request action ${context.action.name} Forbidden`
       );
