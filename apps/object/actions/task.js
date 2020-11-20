@@ -309,6 +309,7 @@ const actionCreateTask = Action.Create({
           console.log(str);
       } 
   });
+  console.log(str);
       res.json({
         result: result,
         log: str
