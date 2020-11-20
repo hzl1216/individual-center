@@ -301,7 +301,7 @@ const actionCreateTask = Action.Create({
         }
     });
     let str;
-    await fs.readFile(task.log, function(err, data){
+    fs.readFile(task.log, function(err, data){
       if(err){
           console.log(err);
       }else{
