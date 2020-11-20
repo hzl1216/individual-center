@@ -251,10 +251,66 @@ const actionCreateTask = Action.Create({
     }
   });
   
+  const actionGetTask = Action.Create({
+    name: 'actionGetTask',
+    summary: '',
+    description: '获取任务',
+    prehandlers: prehandlers.actionGetTask,
+    /**
+    * Action handler
+    * @param {express.core.Request} req - The HTTP request of express.
+    * @param {express.core.Response} res - The HTTP response of express.
+    * @param {kexpress.HandleContext} ctx - The context data of kexpress.
+    */
+    async handler(req, res, ctx) {
+      const  { taskDao } = ctx.store.default;
+      let where = {}
+      if (req.query.id) {
+          where['id'] = req.query.id;
+      }
+      if (req.query.name) {
+        where['name'] = req.query.name;
+    }
+
+
+      let task = await taskDao.findOne(where);
+     
+      let result = await  task.$extract({
+        includes: {
+            name: true,
+            description: true,
+            model: {
+                name: true,
+                url: true
+            },
+            rawdata: {
+                url: true,
+                type: true
+            },
+            processeddata:{
+                url: true,
+                type: true
+            },
+            log: true,
+            status: true,
+            stdout:true,
+            createdAt: true,
+            updatedAt: true,
+            finishedAt: true,
+            inputparams: true,
+            outparams: true
+        }
+    });
+      res.json({
+        result: result,
+      });
+    }
+  });
 
   module.exports = {
     actionCreateTask,
     actionUpdateStatus,
-    actionGetTasks
+    actionGetTasks,
+    actionGetTask
   };
   
