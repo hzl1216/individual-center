@@ -103,4 +103,23 @@ module.exports = {
       }
     }
   },
+  actionGetTask: {
+    request: {
+      contentType: 'application/json',
+      query: {
+        id: 'string',
+        name: 'string',
+      }
+    },
+    response: {
+      200: {
+      },
+      contentType: 'application/json'
+    },
+    store: {
+      default: {
+        Task
+      }
+    }
+  },
 };

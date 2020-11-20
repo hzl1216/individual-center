@@ -12,7 +12,7 @@ const router = new Router({
 router.post('/', actions.actionCreateTask);
 router.post('/update', actions.actionUpdateStatus);
 router.get('/', actions.actionGetTasks);
-
+router.get('/one', actions.actionGetTask);
 module.exports = {
   router
 };
