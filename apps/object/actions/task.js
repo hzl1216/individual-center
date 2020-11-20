@@ -304,6 +304,7 @@ const actionCreateTask = Action.Create({
     fs.readFile(task.log, function(err, data){
       if(err){
           console.log(err);
+          res.send("log not found！");
       }else{
            str = marked(data.toString());
           console.log(str);
