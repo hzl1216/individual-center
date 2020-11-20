@@ -273,7 +273,7 @@ const actionCreateTask = Action.Create({
 
       let task = await taskDao.findOne(where);
      
-      let result = await   Task.$extract(task, {
+      let result = await  task.$extract({
         includes: {
             name: true,
             description: true,
