@@ -301,19 +301,27 @@ const actionCreateTask = Action.Create({
         }
     });
     let str;
-    fs.readFile(task.log, function(err, data){
-      if(err){
-          console.log(err);
-          res.send("log not found！");
-      }else{
-           str = marked(data.toString());
-          console.log(str);
-          res.json({
-            result: result,
-            log: str
-          });
-      } 
-  });
+    if(task.log){
+      fs.readFile(task.log, function(err, data){
+        if(err){
+            console.log(err);
+            res.send("log not found！");
+        }else{
+             str = marked(data.toString());
+            console.log(str);
+            res.json({
+              result: result,
+              log: str
+            });
+        } 
+    });
+
+    }else {
+      res.json({
+        result: result
+      });
+    }
+
 
     }
   });
