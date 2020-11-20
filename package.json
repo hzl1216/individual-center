@@ -28,6 +28,7 @@
     "kexpress-http": "^1.0.6",
     "kexpress-store": "^1.0.5",
     "kexpress-store-um": "^1.0.1",
+    "marked": "^1.2.5",
     "multiparty": "^4.2.1",
     "nodemailer": "^6.4.10",
     "pm2": "^3.5.0",
