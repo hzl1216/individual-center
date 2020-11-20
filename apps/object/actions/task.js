@@ -307,13 +307,13 @@ const actionCreateTask = Action.Create({
       }else{
            str = marked(data.toString());
           console.log(str);
+          res.json({
+            result: result,
+            log: str
+          });
       } 
   });
-  console.log(str);
-      res.json({
-        result: result,
-        log: str
-      });
+
     }
   });
 
