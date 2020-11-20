@@ -267,7 +267,7 @@ const actionLogin = Action.Create({
       loginName: true
     }
   });
-  req.session.Guest = guest;
+  req.session.User = guest;
   console.log(guest);
   res.json({
     guestId:  guest.id,
