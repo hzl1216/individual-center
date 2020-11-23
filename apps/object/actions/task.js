@@ -52,7 +52,7 @@ const actionCreateTask = Action.Create({
           name: taskname,
           description: description,
           model: model,  
-          status: '未执行',
+          status: 'ready',
           inputparams: inputparams,
           outparams: outparams,
           createdAt: new Date().getTime()
@@ -104,7 +104,7 @@ const actionCreateTask = Action.Create({
       }
 
       t['status'] = status
-      if (status == '执行中'){
+      if (status == 'executing'){
         let task = await t.$extract({
             includes: {
                 username: true,
@@ -129,7 +129,7 @@ const actionCreateTask = Action.Create({
             });
             let callback1 = function (err,exeu, log) {
 
-                t['status'] = '执行失败'
+                t['status'] = 'failed'
                 t['stdout'] = exeu+ err;
                 t['log'] = log
                 t['finishedAt'] = new Date();
@@ -138,7 +138,7 @@ const actionCreateTask = Action.Create({
                 taskDao.updateOne(t);
             }
             let callback2 = function(stdout,exeu, log) {
-                t['status'] = '执行成功';
+                t['status'] = 'success';
                 t['stdout'] = exeu+stdout;
                 t['log'] = log
                 t['finishedAt'] = new Date();
