@@ -206,7 +206,9 @@ const actionCreateTask = Action.Create({
       if (req.query.status) {
           where['status'] = req.query.status
       }
-
+      if (req.query.username) {
+        where['username'] = req.query.username
+    }
 
       const {
         skip,
@@ -220,6 +222,7 @@ const actionCreateTask = Action.Create({
       let result = await   Task.$extractArray(tasks, {
         includes: {
             name: true,
+            username: true,
             description: true,
             model: {
                 name: true,

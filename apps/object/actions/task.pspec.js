@@ -89,7 +89,8 @@ module.exports = {
           $type: 'integer',
           $default: 10
         },
-        status: 'string'
+        status: 'string',
+        username: 'string'
       }
     },
     response: {
