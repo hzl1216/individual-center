@@ -169,7 +169,7 @@ const actionCreateTask = Action.Create({
           const args = {
             inputparams: inputparams,
             outparams: outparams,
-            log : path.join(home, task.name+'.log')
+            log : task.model.url.split('.')[0]+'.log'
           }
 
           if (task.model.type == 'R'){
