@@ -133,7 +133,6 @@ const actionCreateTask = Action.Create({
                 t['stdout'] = exeu+ err;
                 t['log'] = log
                 t['finishedAt'] = new Date();
-                console.log(exeu+ err);
                 t['outparams'] =  JSON.stringify(outparams);
                 taskDao.updateOne(t);
             }
@@ -142,7 +141,6 @@ const actionCreateTask = Action.Create({
                 t['stdout'] = exeu+stdout;
                 t['log'] = log
                 t['finishedAt'] = new Date();
-                console.log(exeu+ stdout);
                 t['outparams'] = JSON.stringify(outparams);
                 taskDao.updateOne(t);
             }
