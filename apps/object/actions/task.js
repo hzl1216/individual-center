@@ -2,6 +2,8 @@
 
 const kexpress = require('kexpress');
 const path = require('path');
+const fs = require("fs");
+const marked = require( "marked" );
 const Action = kexpress.core.action.Action;
 const {
     exec_python,
@@ -50,7 +52,7 @@ const actionCreateTask = Action.Create({
           name: taskname,
           description: description,
           model: model,  
-          status: '未执行',
+          status: 'ready',
           inputparams: inputparams,
           outparams: outparams,
           createdAt: new Date().getTime()
@@ -102,7 +104,7 @@ const actionCreateTask = Action.Create({
       }
 
       t['status'] = status
-      if (status == '执行中'){
+      if (status == 'executing'){
         let task = await t.$extract({
             includes: {
                 username: true,
@@ -127,20 +129,18 @@ const actionCreateTask = Action.Create({
             });
             let callback1 = function (err,exeu, log) {
 
-                t['status'] = '执行失败'
+                t['status'] = 'failed'
                 t['stdout'] = exeu+ err;
                 t['log'] = log
                 t['finishedAt'] = new Date();
-                console.log(exeu+ err);
                 t['outparams'] =  JSON.stringify(outparams);
                 taskDao.updateOne(t);
             }
             let callback2 = function(stdout,exeu, log) {
-                t['status'] = '执行成功';
+                t['status'] = 'success';
                 t['stdout'] = exeu+stdout;
                 t['log'] = log
                 t['finishedAt'] = new Date();
-                console.log(exeu+ stdout);
                 t['outparams'] = JSON.stringify(outparams);
                 taskDao.updateOne(t);
             }
@@ -169,7 +169,7 @@ const actionCreateTask = Action.Create({
           const args = {
             inputparams: inputparams,
             outparams: outparams,
-            log : path.join(home, task.name+'.log')
+            log : task.model.url.split('.')[0]+'.log'
           }
 
           if (task.model.type == 'R'){
@@ -206,7 +206,9 @@ const actionCreateTask = Action.Create({
       if (req.query.status) {
           where['status'] = req.query.status
       }
-
+      if (req.query.username) {
+        where['username'] = req.query.username
+    }
 
       const {
         skip,
@@ -220,6 +222,7 @@ const actionCreateTask = Action.Create({
       let result = await   Task.$extractArray(tasks, {
         includes: {
             name: true,
+            username: true,
             description: true,
             model: {
                 name: true,
@@ -233,7 +236,6 @@ const actionCreateTask = Action.Create({
                 url: true,
                 type: true
             },
-            log: true,
             status: true,
             stdout:true,
             createdAt: true,
@@ -301,9 +303,29 @@ const actionCreateTask = Action.Create({
             outparams: true
         }
     });
+    let str;
+    if(task.log){
+      fs.readFile(task.log, function(err, data){
+        if(err){
+            console.log(err);
+            res.send("log not found！");
+        }else{
+             str = marked(data.toString());
+            console.log(str);
+            res.json({
+              result: result,
+              log: str
+            });
+        } 
+    });
+
+    }else {
       res.json({
-        result: result,
+        result: result
       });
+    }
+
+
     }
   });
 
